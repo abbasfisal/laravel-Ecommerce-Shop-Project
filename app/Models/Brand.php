@@ -11,6 +11,11 @@ class Brand extends Model
 
     protected $table = 'brands';
 
+    const c_id = 'id';
+    const c_title = 'title';
+    const c_slug = 'slug';
+    const c_image = 'image';
+
     protected $fillable = [
         'title',
         'slug',

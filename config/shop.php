@@ -8,5 +8,11 @@ return [
  |
  |
  */
-    'perPage'=>10
+    'perPage'=>10 ,
+
+    'brandImagePath'=>'images\\brands\\',
+
+    'msg'=>[
+        'create'=>'successfully created',
+    ]
 ];

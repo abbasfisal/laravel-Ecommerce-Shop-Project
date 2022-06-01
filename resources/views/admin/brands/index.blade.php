@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
     <div class="row">
-
         <div class="col-xl-6 m-auto">
             <div class="card">
                 @if(session('success'))
@@ -10,8 +9,7 @@
                     </div>
                 @endif
                 <div class="card-body">
-
-                    <form action="{{route('store.brand')}}" method="post">
+                    <form action="{{route('store.brand')}}" enctype="multipart/form-data" method="post">
                         @csrf
                         @method('post')
                         <div class="row">
@@ -21,6 +19,7 @@
                                     <label for="validationCustom01" class="form-label">Title</label>
                                     <input type="text"
                                            name="title"
+                                           value="{{old('title')}}"
                                            class="form-control @error('title') is-ivalid @enderror"
                                            placeholder="Title">
 
@@ -92,12 +91,11 @@
                             <td data-field="id">{{$brands_paginate->firstItem() + $key}}</td>
                             <td data-field="title">{{$brand->title}}</td>
                             <td data-field="slug">{{$brand->slug}}</td>
-                            <td data-field="category">
-                                @if($brand->parent_id == null)
-                                    <b>{{$brand->title}}</b>
-                                @else
-                                    {{$brand->parent->title}}
-                                @endif
+                            <td data-field="image">
+                                <img
+                                    class="rounded-3 shadow"
+                                    height="100px"
+                                    src="{{asset(config('shop.brandImagePath'). $brand->image)}}">
                             </td>
                             <td class="text-center">
                                 <a

@@ -22,6 +22,7 @@
                                     <label for="validationCustom01" class="form-label">Title</label>
                                     <input type="text"
                                            name="title"
+                                           value="{{old('title')}}"
                                            class="form-control @error('title') is-ivalid @enderror"
                                            placeholder="Title">
 
