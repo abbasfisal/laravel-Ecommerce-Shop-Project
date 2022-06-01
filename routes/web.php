@@ -19,8 +19,13 @@ Route::group(['prefix' => 'dashboard'], function () {
      |------------------------------
      */
 
+    //show all
     Route::get('/category', [CategoryController::class, 'index'])
          ->name('index.category');
+
+    //store new
+    Route::post('/category', [CategoryController::class, 'store'])
+         ->name('store.category');
 
 });
 
