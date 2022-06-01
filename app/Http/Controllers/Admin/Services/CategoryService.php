@@ -11,7 +11,6 @@ class CategoryService
 {
 
 
-
     /**
      * @return Category[]|\Illuminate\Database\Eloquent\Collection
      */
@@ -36,6 +35,6 @@ class CategoryService
     public static function getWithPaginate($perPage = null)
     {
         return Category::query()
-                       ->paginate($perPage ?? config('shop.paginate'));
+                       ->paginate($perPage ?? config('shop.perPage'));
     }
 }

@@ -8,5 +8,5 @@ return [
  |
  |
  */
-    'paginate'=>10
+    'perPage'=>10
 ];

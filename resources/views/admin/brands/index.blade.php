@@ -1,5 +1,4 @@
 @extends('admin.layouts.app')
-
 @section('content')
     <div class="row">
 
@@ -12,7 +11,7 @@
                 @endif
                 <div class="card-body">
 
-                    <form action="{{route('store.category')}}" method="post">
+                    <form action="{{route('store.brand')}}" method="post">
                         @csrf
                         @method('post')
                         <div class="row">
@@ -49,42 +48,13 @@
                         </div>
 
                         <div class="row">
-                            {{--sub category --}}
+                            {{--image  --}}
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label for="validationCustom03" class="form-label">Select Parent Category</label>
-                                    <select
-                                        name="category"
-                                        class="form-select @error('category') is-ivalid @enderror">
-                                        <option selected="" value="0">As Parent</option>
-                                        @foreach($categories as $category)
-                                            @if($category->parent_id == null)
-                                                <option value="{{$category->id}}">{{$category->title}}</option>
-                                            @endif
-                                        @endforeach
-                                        {{--<option selected="" value="0">None</option>
-                                        @foreach ($categories as $category)
+                                    <label for="validationCustom03" class="form-label">Brand Image</label>
+                                    <input class="form-control" name="image" type="file">
 
-                                            @if($category->{'parent_id'} === null)
-                                                --}}{{--parent--}}{{--
-                                                @if(count($category->subcategories))
-                                                    <option
-                                                        class="optionGroupn"
-                                                        value="{{$category->id}}" >
-                                                        @include('admin.layouts.partials.subcategory' , ['sub'=>$category->subcategories])
-                                                    </option>
-                                                @else
-                                                    <option class="optionChild" value="{{$category->id}}" }}>
-                                                        without sub {{$category->title}}
-                                                    </option>
-                                                @endif
-
-                                            @endif
-
-
-                                        @endforeach--}}
-                                    </select>
-                                    @error('category')
+                                    @error('image')
                                     <div class="text-danger">
                                         {{$message}}
                                     </div>
@@ -96,14 +66,14 @@
                         </div>
 
                         <div class="row">
-                            <button class="btn btn-info" type="submit">Create New Category</button>
+                            <button class="btn btn-info" type="submit">Create New Brand</button>
                         </div>
                     </form>
                 </div>
             </div>
             <!-- end card -->
         </div>
-        <div class="row border m-auto">
+        <div class="row rounded-3 shadow m-auto">
             <div class="table-responsive">
                 <table class="table  table-nowrap align-middle table-edits">
                     <thead>
@@ -111,27 +81,27 @@
                         <th>ID</th>
                         <th>Title</th>
                         <th>SLUG</th>
-                        <th>Category</th>
+                        <th>image</th>
                         <th class="text-center">Opt</th>
                     </tr>
                     </thead>
                     <tbody>
 
-                    @foreach( $cats_paginate as $key =>$cat)
+                    @foreach( $brands_paginate as $key =>$brand)
                         <tr data-id="5" style="cursor: pointer;">
-                            <td data-field="id">{{$cats_paginate->firstItem() + $key}}</td>
-                            <td data-field="title">{{$cat->title}}</td>
-                            <td data-field="slug">{{$cat->slug}}</td>
+                            <td data-field="id">{{$brands_paginate->firstItem() + $key}}</td>
+                            <td data-field="title">{{$brand->title}}</td>
+                            <td data-field="slug">{{$brand->slug}}</td>
                             <td data-field="category">
-                                @if($cat->parent_id == null)
-                                    <b>{{$cat->title}}</b>
+                                @if($brand->parent_id == null)
+                                    <b>{{$brand->title}}</b>
                                 @else
-                                    {{$cat->parent->title}}
+                                    {{$brand->parent->title}}
                                 @endif
                             </td>
                             <td class="text-center">
                                 <a
-                                    href="#{{$cat->id}}"
+                                    href="#{{$brand->id}}"
                                     class="btn btn-outline-warning btn-sm edit" title="Edit">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
@@ -145,12 +115,8 @@
 
                     </tbody>
                 </table>
-                {!! $cats_paginate->links() !!}
+                {!! $brands_paginate->links() !!}
             </div>
         </div>
-
     </div>
-
-
-
 @endsection

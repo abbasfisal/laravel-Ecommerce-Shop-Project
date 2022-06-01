@@ -42,7 +42,19 @@
 
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-layout-3-line"></i>
+                        <span>Brand</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="true">
+                        <li>
+                            <a href="{{route('index.brand')}}" class="">All Brand</a>
+                        </li>
 
+
+                    </ul>
+                </li>
 
 
             </ul>
