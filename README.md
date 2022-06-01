@@ -1,64 +1,165 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+ER
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# users
 
-## About Laravel
+    id
+    name
+    type (default user)
+    family 
+    mobile
+    username
+    password
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+#otp
+    id
+    tel
+    code
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# categories
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+    id    
+    title
+    slug
+    image
+    parent_id (nullable)
 
-## Learning Laravel
+# brand
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+    id
+    title   
+    slug
+    image   
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+--------------------------------------
 
-## Laravel Sponsors
+# color
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+    id
+    title
+    code
 
-### Premium Partners
+# size
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+    id
+    title
 
-## Contributing
+----------------------------------------
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# products
 
-## Code of Conduct
+    id
+    category_id         (FK)(nullable)
+    brand_id            (FK)(nullable)
+    title
+    slug
+    price
+    active              (boolean)
+    on_sale             (nullable)
+    on_sale_started_at  (nullable)
+    on_sale_end_at      (nullable)
+    image
+    
+    short_description   (nullable)
+    long_description    (nullable)
+    note                (nullable)
+    stock
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# product_details
 
-## Security Vulnerabilities
+    id
+    product_id          (fk)
+    title
+    description
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# product_galleries
 
-## License
+    id
+    product_id(fk)
+    image
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+-----------------------------------------------
+
+# color_product (pivot M:M)
+
+    id
+    color_id    (fk )
+    product_id  (fk)
+
+# product_size (pivot M:M)
+
+    id
+    product_id  (fk)
+    size_id     (fk)
+
+-----------------------------------------------
+
+# up_sales
+
+    id
+    product_id  (fk)
+    offer       (fk on products table)
+
+# cross_sales
+
+    id
+    product_id  (fk)
+    offer       (fk on products table)
+
+# baskets
+
+    id
+    user_id     (fk)
+    product_id  (fk)
+    count
+
+# cities
+
+    id
+    name
+
+# states
+
+    id
+    city_id     (fk)
+    name
+
+# discounts
+
+    id
+    title
+    percent
+    image   (nullable)
+    started_at
+    end_at
+
+# wishlists
+
+    id
+    user_id     (fk)
+    product_id  (fk)
+
+# comments
+
+    id
+    commentable_id
+    commentable_type
+    parent_id           (nullable)(fk on comments table)
+    text
+    show                (boolean)(default false)
+
+# invoices
+
+    id 
+    user_id     (fk)
+    product_id  (fk)
+    discount_id (nullable)(fk on discounts table)
+    count
+    paid
+    city_id     (fk)
+    state_id    (fk)
+    address
+    postal_code
+    tel
+    note
+    delivery_state [pending,shipping,deliverd]
+    

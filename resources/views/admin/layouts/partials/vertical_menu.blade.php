@@ -32,31 +32,14 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="ri-layout-3-line"></i>
-                        <span>Layouts</span>
+                        <span>Category</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="true">
                         <li>
-                            <a href="javascript: void(0);" class="has-arrow">Vertical</a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/layouts-light-sidebar.html">Light Sidebar</a></li>
-                                <li><a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/layouts-compact-sidebar.html">Compact Sidebar</a></li>
-                                <li><a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/layouts-icon-sidebar.html">Icon Sidebar</a></li>
-                                <li><a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/layouts-boxed.html">Boxed Layout</a></li>
-                                <li><a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/layouts-preloader.html">Preloader</a></li>
-                                <li><a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/layouts-colored-sidebar.html">Colored Sidebar</a></li>
-                            </ul>
+                            <a href="{{route('index.category')}}" class="">All Category</a>
                         </li>
 
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow">Horizontal</a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/layouts-horizontal.html">Horizontal</a></li>
-                                <li><a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/layouts-hori-topbar-light.html">Topbar light</a></li>
-                                <li><a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/layouts-hori-boxed-width.html">Boxed width</a></li>
-                                <li><a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/layouts-hori-preloader.html">Preloader</a></li>
-                                <li><a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/layouts-hori-colored-header.html">Colored Header</a></li>
-                            </ul>
-                        </li>
+
                     </ul>
                 </li>
 

@@ -40,6 +40,7 @@
                         <label for="tel">Enter Mobile Number</label>
                         <input class="form-control @error('tel') is-invalid @enderror"
                                id="tel"
+                               maxlength="11"
                                value="{{old('tel')}}"
                                name="tel"
                                type="text" required=""
