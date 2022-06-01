@@ -93,7 +93,7 @@
                             <td data-field="slug">{{$brand->slug}}</td>
                             <td data-field="image">
                                 <img
-                                    class="rounded-3 shadow"
+                                    class="avatar-lg shadow"
                                     height="100px"
                                     src="{{asset(config('shop.brandImagePath'). $brand->image)}}">
                             </td>

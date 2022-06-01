@@ -28,7 +28,7 @@
                         <span>Chat</span>
                     </a>
                 </li>
-
+                {{--Category--}}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="ri-layout-3-line"></i>
@@ -42,6 +42,7 @@
 
                     </ul>
                 </li>
+                {{--Brand--}}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="ri-layout-3-line"></i>
@@ -50,6 +51,20 @@
                     <ul class="sub-menu" aria-expanded="true">
                         <li>
                             <a href="{{route('index.brand')}}" class="">All Brand</a>
+                        </li>
+
+
+                    </ul>
+                </li>
+                {{--Color--}}
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-layout-3-line"></i>
+                        <span>Color</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="true">
+                        <li>
+                            <a href="{{route('index.color')}}" class="">All Color</a>
                         </li>
 
 
