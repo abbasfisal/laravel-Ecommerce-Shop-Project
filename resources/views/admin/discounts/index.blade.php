@@ -85,11 +85,8 @@
                         <div class="row">
                             <div class="mb-3">
                                 <label for="color" class="form-label">Disount Banner</label>
-                                <input type="file"
-                                       name="image"
-                                       class="form-control form-control-color w-100 @error('image') is-ivalid @enderror"
-                                       id="color"
-                                       value="{{old('image')}}">
+
+                                <input class="form-control" name="image" type="file">
                                 @error('image')
                                 <div class="text-danger">
                                     {{$message}}
@@ -98,7 +95,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button class="btn btn-info" type="submit">Create New Color</button>
+                            <button class="btn btn-info" type="submit">Create New Discount</button>
                         </div>
                     </form>
                 </div>
