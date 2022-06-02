@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\StateController;
 use Illuminate\Support\Facades\Route;
@@ -101,6 +102,19 @@ Route::group(['prefix' => 'dashboard'], function () {
     //store new state
     Route::post('/state', [StateController::class, 'store'])
          ->name('store.state');
+
+    /*
+     |------------------------------
+     | Didsount
+     |------------------------------
+     */
+    //show discount
+    Route::get('/discount', [DiscountController::class, 'index'])
+         ->name('index.discount');
+
+    //store new discount
+    Route::post('/discount', [DiscountController::class, 'store'])
+         ->name('store.discount');
 
 });
 

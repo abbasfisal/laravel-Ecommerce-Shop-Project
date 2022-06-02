@@ -19,6 +19,7 @@
     <!-- App Css-->
     <link href="{{asset('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
 
+    @stack('header')
 </head>
 
 <body>
@@ -91,5 +92,6 @@
 <script src="{{asset('assets/libs/node-waves/waves.min.js')}}"></script>
 <script src="{{asset('assets/js/app.js')}}"></script>
 
+@stack('footer')
 </body>
 </html>

@@ -9,21 +9,24 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/index.html" class="waves-effect">
+                    <a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/index.html"
+                       class="waves-effect">
                         <i class="ri-dashboard-line"></i><span class="badge rounded-pill bg-success float-end">3</span>
                         <span>Dashboard</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/calendar.html" class=" waves-effect">
+                    <a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/calendar.html"
+                       class=" waves-effect">
                         <i class="ri-calendar-2-line"></i>
                         <span>Calendar</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/apps-chat.html" class=" waves-effect">
+                    <a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/apps-chat.html"
+                       class=" waves-effect">
                         <i class="ri-chat-1-line"></i>
                         <span>Chat</span>
                     </a>
@@ -98,6 +101,21 @@
                         <li>
                             <a href="{{route('index.state')}}" class="">Show State</a>
                         </li>
+
+                    </ul>
+                </li>
+
+                {{--discount--}}
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-layout-3-line"></i>
+                        <span>Discount</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="true">
+                        <li>
+                            <a href="{{route('index.discount')}}" class="">All Discount</a>
+                        </li>
+
 
                     </ul>
                 </li>
