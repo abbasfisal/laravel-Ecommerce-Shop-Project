@@ -93,9 +93,11 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="true">
                         <li>
-                            <a href="{{route('index.city')}}" class="">All City/State</a>
+                            <a href="{{route('index.city')}}" class="">create City/State</a>
                         </li>
-
+                        <li>
+                            <a href="{{route('index.state')}}" class="">Show State</a>
+                        </li>
 
                     </ul>
                 </li>

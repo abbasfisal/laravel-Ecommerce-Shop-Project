@@ -11,4 +11,18 @@ class City extends Model
 
     protected $table = 'cities';
     protected $fillable = ['name'];
+
+
+    /*
+     |------------------------------
+     | City
+     |------------------------------
+     |
+     |
+     |
+     */
+    public function states()
+    {
+        return $this->hasMany(State::class);
+    }
 }

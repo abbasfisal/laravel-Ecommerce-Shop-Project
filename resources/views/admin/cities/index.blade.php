@@ -98,7 +98,25 @@
     </div>
     <div class="shadow bg-white rounded col-xl-12 ">
         <div class="table-responsive">
+
+            <div class="row justify-content-center pt-3">
+                @csrf
+                @method('post')
+                <div class="col-lg-2">
+                    <button type="button" id="getstate" class="mybtn btn btn-outline-info col-lg-12">Refresh</button>
+                </div>
+                <div class="col-lg-3">
+                    <select type="text" class=" form-select" name="get_city_id">
+                        <option value="0">Select City</option>
+                        @foreach($cities as $city)
+                            <option value="{{$city->id}}">{{$city->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
             <table class="table  table-nowrap align-middle table-edits">
+
                 <thead>
                 <tr style="">
                     <th>ID</th>
@@ -108,32 +126,32 @@
                 </tr>
                 </thead>
                 <tbody>
+                {{-- @if(isset($states))
+                     @foreach( $states as $key =>$state)
+                         <tr data-id="5" style="cursor: pointer;">
+                             <td data-field="id">{{$states->firstItem() + $key}}</td>
+                             <td data-field="title">{{$state->name}}</td>
 
-                {{--@foreach( $colors as $key =>$color)
-                    <tr data-id="5" style="cursor: pointer;">
-                        <td data-field="id">{{$colors->firstItem() + $key}}</td>
-                        <td data-field="title">{{$color->name}}</td>
-                        <td data-field="color">
-                            <img class="avatar-sm rounded-circle" style="background-color:{{$color->code}}" width="20" height="20" alt="">
+                             <td class="text-center">
+                                 <a
+                                     href="#{{$state->id}}"
+                                     class="btn btn-outline-warning btn-sm edit" title="Edit">
+                                     <i class="fas fa-pencil-alt"></i>
+                                 </a>
+                                 &nbsp;
+                                 <a class="btn btn-outline-danger btn-sm edit" title="delete">
+                                     <i class="fas fa-trash-alt"></i>
+                                 </a>
+                             </td>
+                         </tr>
+                     @endforeach
+                 @endif--}}
 
-                        </td>
-                        <td class="text-center">
-                            <a
-                                href="#{{$color->id}}"
-                                class="btn btn-outline-warning btn-sm edit" title="Edit">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            &nbsp;
-                            <a class="btn btn-outline-danger btn-sm edit" title="delete">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach--}}
+
 
                 </tbody>
             </table>
-            {{--  {!! $colors->links() !!}--}}
+            {{--  {!! $states->links() !!}--}}
         </div>
     </div>
 

@@ -24,4 +24,10 @@ class CityService extends Controller
     {
         return City::all();
     }
+
+    public static function getById($id)
+    {
+        return City::query()
+                   ->find($id);
+    }
 }

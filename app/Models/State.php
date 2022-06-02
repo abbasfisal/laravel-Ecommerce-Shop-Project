@@ -12,4 +12,18 @@ class State extends Model
     protected $table = 'states';
 
     protected $fillable = ['city_id', 'name'];
+
+
+    /*
+     |------------------------------
+     | Reations
+     |------------------------------
+     |
+     |
+     |
+     */
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
 }
