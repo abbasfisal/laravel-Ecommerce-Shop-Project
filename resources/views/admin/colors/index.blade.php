@@ -77,12 +77,11 @@
                                 <div class="mb-3">
                                     <label for="color" class="form-label">pick a color</label>
                                     <input type="color"
-                                           name="color"
-
-                                           class="form-control form-control-color w-100 @error('parent') is-ivalid @enderror"
+                                           name="code"
+                                           class="form-control form-control-color w-100 @error('code') is-ivalid @enderror"
                                            id="color"
-                                           value="{{old('color')}}">
-                                    @error('color')
+                                           value="{{old('code')}}">
+                                    @error('code')
                                     <div class="text-danger">
                                         {{$message}}
                                     </div>
