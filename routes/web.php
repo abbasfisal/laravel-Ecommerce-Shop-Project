@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\SizeController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -55,5 +56,18 @@ Route::group(['prefix' => 'dashboard'], function () {
     //store new
     Route::post('/color', [ColorController::class, 'store'])
          ->name('store.color');
+
+    /*
+     |------------------------------
+     | Size
+     |------------------------------
+     */
+    //show all
+    Route::get('/size', [SizeController::class, 'index'])
+         ->name('index.size');
+
+    //store new
+    Route::post('/size', [SizeController::class, 'store'])
+         ->name('store.size');
 });
 
