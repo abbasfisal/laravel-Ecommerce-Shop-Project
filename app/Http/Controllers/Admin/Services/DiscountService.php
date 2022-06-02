@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class DiscountService extends Controller
 {
+    /**
+     * store data in db
+     * @param Request $request
+     */
     public static function create(Request $request)
     {
         if ($request->hasFile('image'))
@@ -23,5 +27,15 @@ class DiscountService extends Controller
             'end_at'     => $request->end_at
         ]);
 
+    }
+
+    /**
+     * return data with pagination
+     * @param null $perPage
+     * @return mixed
+     */
+    public static function getWithPagination($perPage = null)
+    {
+        return Discount::paginate($perPage ?? config('shop.perPage'));
     }
 }

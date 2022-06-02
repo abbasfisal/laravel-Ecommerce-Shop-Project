@@ -10,7 +10,8 @@ class DiscountController extends Controller
 {
     public function index()
     {
-        return view('admin.discounts.index');
+        $discounts = DiscountService::getWithPagination();
+        return view('admin.discounts.index'  ,compact('discounts'));
     }
 
     public function store(storeDiscountRequest $request)
