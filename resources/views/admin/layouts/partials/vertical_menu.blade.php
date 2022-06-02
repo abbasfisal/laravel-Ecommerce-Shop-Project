@@ -85,6 +85,21 @@
                     </ul>
                 </li>
 
+                {{--city--}}
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-layout-3-line"></i>
+                        <span>City/State</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="true">
+                        <li>
+                            <a href="{{route('index.city')}}" class="">All City/State</a>
+                        </li>
+
+
+                    </ul>
+                </li>
+
             </ul>
         </div>
         <!-- Sidebar -->
