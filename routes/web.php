@@ -85,7 +85,7 @@ Route::group(['prefix' => 'dashboard'], function () {
          ->name('index.city');
 
     //store new city
-    Route::post('/city', [StateController::class, 'store'])
+    Route::post('/city', [CityController::class, 'store'])
          ->name('store.city');
 
     //store new state

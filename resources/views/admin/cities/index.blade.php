@@ -10,7 +10,6 @@
                     </div>
                 @endif
                 <div class="card-body">
-
                     <form action="{{route('store.city')}}" method="post">
                         @csrf
                         @method('post')
@@ -20,12 +19,12 @@
                                 <div class="mb-3">
                                     <label for="validationCustom01" class="form-label">city name</label>
                                     <input type="text"
-                                           name="city"
-                                           value="{{old('city')}}"
-                                           class="form-control @error('city') is-ivalid @enderror"
+                                           name="name"
+                                           value="{{old('name')}}"
+                                           class="form-control @error('name') is-ivalid @enderror"
                                            placeholder="city name">
 
-                                    @error('city')
+                                    @error('name')
                                     <div class="text-danger">{{$message}}</div>
                                     @enderror
                                 </div>
