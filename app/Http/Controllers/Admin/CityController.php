@@ -10,7 +10,8 @@ class CityController extends Controller
 {
     public function index()
     {
-        return view('admin.cities.index');
+        $cities = CityService::getAll();
+        return view('admin.cities.index',compact('cities'));
     }
 
     public function store(storeCityRequest $request)

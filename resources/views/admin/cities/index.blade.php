@@ -45,7 +45,7 @@
             <div class="card">
                 @if(session('success-state'))
                     <div class="alert text-success">
-                        {{session('success')}}
+                        {{session('success-state')}}
                     </div>
                 @endif
                 <div class="card-body">
@@ -62,6 +62,9 @@
                                         class="form-control form-select"
                                         name="city_id" id="city_id">
                                         <option value="0">Select a City</option>
+                                        @foreach($cities as $city)
+                                            <option value="{{$city->id}}">{{$city->name}}</option>
+                                        @endforeach
                                     </select>
                                     @error('city_id')
                                     <div class="text-danger">{{$message}}</div>
@@ -76,9 +79,7 @@
                                     <input
                                         type="text"
                                         class="form-control "
-                                        name="state" id="state" />
-
-
+                                        name="state" id="state"/>
                                     @error('state')
                                     <div class="text-danger">{{$message}}</div>
                                     @enderror
@@ -132,7 +133,7 @@
 
                 </tbody>
             </table>
-          {{--  {!! $colors->links() !!}--}}
+            {{--  {!! $colors->links() !!}--}}
         </div>
     </div>
 

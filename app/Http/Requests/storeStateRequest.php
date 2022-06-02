@@ -13,7 +13,7 @@ class storeStateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class storeStateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'city_id' => 'required|exists:cities,id',
+            'state'   => 'required|string|min:3'
         ];
     }
 }

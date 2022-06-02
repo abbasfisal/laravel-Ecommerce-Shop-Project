@@ -16,4 +16,12 @@ class CityService extends Controller
     {
         return City::create($request->toArray());
     }
+
+    /**
+     * return all  data
+     */
+    public static function getAll()
+    {
+        return City::all();
+    }
 }
