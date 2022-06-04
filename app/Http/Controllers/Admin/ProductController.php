@@ -30,7 +30,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         ProductService::create($request);
-
+        dd('sotred');
     }
 
 

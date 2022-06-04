@@ -36,7 +36,7 @@ class StoreProductRequest extends FormRequest
             "stock"             => 'required|integer',
             "started_at"        => 'nullable|date',
             "end_at"            => 'nullable|date|after_or_equal:started_at',
-            "image"             => 'required|mimes:jpg,jpeg,png',
+            "cover"             => 'required|mimes:jpg,jpeg,png',
             "note"              => 'nullable|string|min:4',
             "short_description" => 'required|min:4|string',
             "long_description"  => 'nullable|min:4|string',

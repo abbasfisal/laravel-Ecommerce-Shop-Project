@@ -17,10 +17,13 @@ class ProductService extends Controller
     public static function create(Request $request)
     {
 
-        //uplad prodcut image and get uploaded Image
-        $request['image'] = uploadService::handle($request->file('image'), config('shop.productCoverPath'), 'productCover');
+        $request['active'] = $request->has('active') ? true : false;
 
-        Product::create($request->except('main_category'));
+        //uplad prodcut image and get uploaded Image
+
+        $request['image'] = uploadService::handle($request->file('cover'), config('shop.productCoverPath'), 'productCover');
+
+        Product::create($request->toArray());
 
 
     }

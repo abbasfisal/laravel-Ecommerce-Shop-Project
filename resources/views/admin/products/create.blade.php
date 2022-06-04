@@ -169,9 +169,9 @@
             {{--image--}}
             <div class="col-lg-10 m-auto">
                 <br>
-                <label for="image" class="form-label">Select Image</label>
-                <input type="file" name="image" class="form-control"/>
-                @error('image')
+                <label for="cover" class="form-label">Select Image</label>
+                <input type="file" name="cover" class="form-control"/>
+                @error('cover')
                 <div class="text-danger">{{$message}}</div>
                 @enderror
 
