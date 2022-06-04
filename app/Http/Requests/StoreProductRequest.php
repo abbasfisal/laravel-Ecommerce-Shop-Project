@@ -28,6 +28,7 @@ class StoreProductRequest extends FormRequest
         return [
             "title"             => 'required|min:4',
             "slug"              => 'required|min:4',
+            "main_category"     => "required|exists:categories,id",
             "category_id"       => "required|exists:categories,id",
             "brand_id"          => "required|exists:brands,id",
             "price"             => 'required|integer',

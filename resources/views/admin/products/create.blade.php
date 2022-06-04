@@ -29,25 +29,25 @@
                 <div class="row ">
                     {{--category--}}
                     <div class="col-md-6 ">
-                        <label for="category_id" class="form-label">Select Category</label>
-                        <select class="form-control form-select" id="category_id" name="category_id">
+                        <label for="main_category" class="form-label">Select Category</label>
+                        <select class="form-control form-select" id="main_category" name="main_category">
                             <option value="0">Select a Category</option>
                             @foreach($categories as $category)
                                 <option value="{{$category->id}}">{{$category->title}} a Category</option>
                             @endforeach
                         </select>
-                        @error('category_id')
+                        @error('main_category')
                         <div class="text-danger">{{$message}}</div>
                         @enderror
 
                     </div>
                     {{--sub category--}}
                     <div class="col-md-6 ">
-                        <label for="subcategory" class="form-label">Select SubCategory</label>
-                        <select class="form-control form-select" id="subcategory" name="subcategory">
+                        <label for="category_id" class="form-label">Select SubCategory</label>
+                        <select class="form-control form-select" id="category_id" name="category_id">
 
                         </select>
-                        @error('subcategory')
+                        @error('category_id')
                         <div class="text-danger">{{$message}}</div>
                         @enderror
 
@@ -240,11 +240,11 @@
                     'X-CSRF-TOKEN': '{{@csrf_token()}}'
                 }
             })
-            $("#category_id").change(function () {
-                $("#subcategory").children().remove().end();
+            $("#main_category").change(function () {
+                $("#category_id").children().remove().end();
 
                 var formData = {
-                    category_id: $("#category_id").val()
+                    category_id: $("#main_category").val()
                 }
                 $.ajax({
                     data: formData,
@@ -253,7 +253,7 @@
                     dataType: 'json',
                     success: function (data) {
                         data.forEach(el => {
-                            $("#subcategory").append(`<option value='${el.id}'>${el.title}</option>`)
+                            $("#category_id").append(`<option value='${el.id}'>${el.title}</option>`)
                         })
 
                         console.log('success');

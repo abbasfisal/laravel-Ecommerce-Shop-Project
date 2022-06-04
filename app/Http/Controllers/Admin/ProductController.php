@@ -8,7 +8,6 @@ use App\Http\Controllers\Admin\Services\ProductService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\getSubCategoryRequest;
 use App\Http\Requests\StoreProductRequest;
-use Illuminate\Support\HtmlString;
 
 class ProductController extends Controller
 {
@@ -31,6 +30,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         ProductService::create($request);
+
     }
 
 
