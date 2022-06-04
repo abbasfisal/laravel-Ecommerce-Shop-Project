@@ -13,4 +13,14 @@ class Color extends Model
         'name',
         'code'
     ];
+
+    /*
+     |------------------------------
+     | Relations
+     |------------------------------
+     */
+    public function Products()
+    {
+        return $this->belongsToMany(Product::class)->withTimestamps();
+    }
 }

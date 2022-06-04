@@ -60,4 +60,17 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class);
     }
+
+    public function colors()
+    {
+        return $this->belongsToMany(Color::class)
+                    ->withTimestamps();
+    }
+
+    public function sizes()
+    {
+        return $this->belongsToMany(Size::class)
+                    ->withTimestamps();
+    }
+
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ColorRule;
+use App\Rules\SizeRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreProductRequest extends FormRequest
@@ -25,9 +27,16 @@ class StoreProductRequest extends FormRequest
     {
 
 
+
         return [
-            "title"             => 'required|min:4',
-            "slug"              => 'required|min:4',
+            "title" => 'required|min:4',
+            "slug"  => 'required|min:4',
+
+            'sizes'    => 'nullable',
+            'sizes.*'  => [new SizeRule()],
+            'colors'   => 'nullable',
+            'colors.*' => [new ColorRule()],
+
             "main_category"     => "required|exists:categories,id",
             "category_id"       => "required|exists:categories,id",
             "brand_id"          => "required|exists:brands,id",

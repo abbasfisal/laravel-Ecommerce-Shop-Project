@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Services\uploadService;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ProductService extends Controller
 {
@@ -16,15 +18,32 @@ class ProductService extends Controller
      */
     public static function create(Request $request)
     {
+        try {
 
-        $request['active'] = $request->has('active') ? true : false;
+            DB::beginTransaction();
 
-        //uplad prodcut image and get uploaded Image
+            //set active
+            $request['active'] = $request->has('active') ? true : false;
 
-        $request['image'] = uploadService::handle($request->file('cover'), config('shop.productCoverPath'), 'productCover');
+            //get upload image Name
+            $request['image'] = uploadService::handle($request->file('cover'), config('shop.productCoverPath'), 'productCover');
 
-        Product::create($request->toArray());
+            //save to db
+            $product = Product::create($request->toArray());
 
+            //relation M:N COLOR
+            $product->colors()
+                    ->sync($request->colors);
+
+            //relation M:N SIZE
+            $product->sizes()
+                    ->sync($request->sizes);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error($e);
+            DB::rollBack();
+        }
 
     }
 }

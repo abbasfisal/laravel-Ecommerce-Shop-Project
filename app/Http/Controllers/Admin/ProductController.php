@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Services\BrandService;
 use App\Http\Controllers\Admin\Services\CategoryService;
+use App\Http\Controllers\Admin\Services\ColorService;
 use App\Http\Controllers\Admin\Services\ProductService;
+use App\Http\Controllers\Admin\Services\SizeService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\getSubCategoryRequest;
 use App\Http\Requests\StoreProductRequest;
@@ -21,7 +23,9 @@ class ProductController extends Controller
     {
         $categories = CategoryService::getMainCategories();
         $brands = BrandService::getAll();
-        return view('admin.products.create', compact('categories', 'brands'));
+        $sizes= SizeService::getAll();
+        $colors = ColorService::getAll();
+        return view('admin.products.create', compact('categories', 'brands' , 'colors','sizes'));
     }
 
     /**

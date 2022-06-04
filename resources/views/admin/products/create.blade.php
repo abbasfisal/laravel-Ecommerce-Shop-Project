@@ -55,6 +55,44 @@
                 </div>
             </div>
 
+
+            <br>
+            <div class="col-lg-10 m-auto">
+                <div class="row ">
+                    {{--size--}}
+                    <div class="col-md-6 ">
+                        <label for="sizes" class="form-label">Select Size</label>
+                        <span class="badge bg-info">it can be null</span>
+                        <select class="form-control form-select sizes" id="sizes" name="sizes[]" multiple="multiple">
+                            @foreach($sizes as $size)
+                                <option value="{{$size->id}}">{{$size->title}}</option>
+                            @endforeach
+                        </select>
+
+                        @error('sizes.*')
+                            <div class="text-danger">{{$message}}</div>
+                        @enderror
+
+                    </div>
+                    {{--Colors --}}
+                    <div class="col-md-6 ">
+                        <label for="colors" class="form-label">Select Color </label>
+                        <span class="badge bg-info">it can be null</span>
+                        <select class="js-example-basic-multiple form-control form-select" id="colors" name="colors[]"
+                                multiple="multiple">
+
+                            @foreach($colors as $color)
+                                <option value="{{$color->id}}">{{$color->name}} </option>
+                            @endforeach
+                        </select>
+                        @error('colors.*')
+                        <div class="text-danger">{{$message}}</div>
+                        @enderror
+
+                    </div>
+                </div>
+            </div>
+
             <br>
             {{--brand --}}
             <div class="col-lg-10 m-auto">
@@ -218,8 +256,13 @@
 
 @endsection
 @push('header')
-    <script src="{{ asset('assets/js/tiny_mce.js') }}" referrerpolicy="origin"></script>
+    {{--Select 2 css--}}
+    <link rel="stylesheet" href="{{asset('assets/css/select2.min.css')}}">
 
+
+
+    {{--tiny MCE--}}
+    <script src="{{ asset('assets/js/tiny_mce.js') }}" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
             selector: 'textarea#long', // Replace this CSS selector to match the placeholder element for TinyMCE
@@ -231,15 +274,19 @@
 @endpush
 @push('footer')
 
-    {{-- script for changeing Category State--}}
+    {{--select 2 js--}}
+    <script src="{{ asset('assets/js/select2.min.js') }}" referrerpolicy="origin"></script>
+
+
     <script>
         $(document).ready(function () {
-
+            //ajax setup
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': '{{@csrf_token()}}'
                 }
             })
+            //main category ajax send subcategory
             $("#main_category").change(function () {
                 $("#category_id").children().remove().end();
 
@@ -255,18 +302,24 @@
                         data.forEach(el => {
                             $("#category_id").append(`<option value='${el.id}'>${el.title}</option>`)
                         })
-
-                        console.log('success');
-                        console.log(data);
                     },
                     error: function (data) {
                         console.log(data)
                     }
-
                 });
             })
+
+
+            $('#colors').select2();
+            $('#sizes').select2();
+
+
         })
+
+
     </script>
+
+
 @endpush
 {{--attribtues--}}
 {{--<div class="row">

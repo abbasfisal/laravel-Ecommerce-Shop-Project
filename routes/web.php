@@ -137,5 +137,5 @@ Route::group(['prefix' => 'dashboard'], function () {
          ->name('subcategory.product');
 });
 
-
+Route::view('/tt', 'test');
 

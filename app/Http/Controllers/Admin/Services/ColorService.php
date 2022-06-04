@@ -28,4 +28,13 @@ class ColorService extends Controller
         return Color::query()
                     ->create($request->toArray());
     }
+
+    /**
+     * get all color
+     * @return mixed
+     */
+    public static function getAll()
+    {
+        return Color::get();
+    }
 }

@@ -28,4 +28,13 @@ class SizeService extends Controller
         return Size::create($request->toArray());
     }
 
+    /**
+     * get all color
+     * @return mixed
+     */
+    public static function getAll()
+    {
+        return Size::get();
+    }
+
 }

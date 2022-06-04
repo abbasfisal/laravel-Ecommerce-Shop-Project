@@ -10,7 +10,18 @@ class Size extends Model
     use HasFactory;
 
 
-
     protected $table = 'sizes';
     protected $fillable = ['title'];
+
+
+    /*
+     |------------------------------
+     | Relations
+     |------------------------------
+     */
+    public function products()
+    {
+        return $this->belongsToMany(Product::class)
+                    ->withTimestamps();
+    }
 }
