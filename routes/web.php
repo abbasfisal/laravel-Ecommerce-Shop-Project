@@ -132,6 +132,9 @@ Route::group(['prefix' => 'dashboard'], function () {
 
     Route::post('/product', [ProductController::class, 'store'])
          ->name('store.product');
+
+    Route::post('/product/subcategory', [ProductController::class, 'getSubCategory'])
+         ->name('subcategory.product');
 });
 
 

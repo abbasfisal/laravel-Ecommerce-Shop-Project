@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Services\BrandService;
+use App\Http\Controllers\Admin\Services\CategoryService;
+use App\Http\Controllers\Admin\Services\ProductService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\getSubCategoryRequest;
 use App\Http\Requests\StoreProductRequest;
+use Illuminate\Support\HtmlString;
 
 class ProductController extends Controller
 {
@@ -15,7 +20,9 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('admin.products.create');
+        $categories = CategoryService::getMainCategories();
+        $brands = BrandService::getAll();
+        return view('admin.products.create', compact('categories', 'brands'));
     }
 
     /**
@@ -23,6 +30,18 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
+        ProductService::create($request);
+    }
 
+
+    /***
+     * get sub Category by id
+     */
+    public function getSubCategory(getSubCategoryRequest $request)
+    {
+
+        $subcategories = CategoryService::getSubCatByCategory($request->category_id);
+
+        return response()->json($subcategories);
     }
 }
