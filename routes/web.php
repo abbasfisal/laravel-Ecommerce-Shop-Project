@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\StateController;
 use Illuminate\Support\Facades\Route;
@@ -116,5 +117,22 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::post('/discount', [DiscountController::class, 'store'])
          ->name('store.discount');
 
+    /*
+     |------------------------------
+     | Product
+     |------------------------------
+     */
+    //all proudct
+    Route::get('/product', [ProductController::class, 'index'])
+         ->name('index.product');
+
+    //show create form
+    Route::get('product/create', [ProductController::class, 'create'])
+         ->name('create.product');
+
+    Route::post('/product', [ProductController::class, 'store'])
+         ->name('store.product');
 });
+
+
 

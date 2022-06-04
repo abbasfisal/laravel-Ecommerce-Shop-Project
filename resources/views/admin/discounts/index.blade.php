@@ -105,7 +105,7 @@
     </div>
     <div class="row">
         <div class="shadow bg-white rounded col ">
-            <div class="table-responsive">
+            <div class="table-responsive ">
                 <table class="table  table-nowrap align-middle table-edits">
                     <thead>
                     <tr style="">
@@ -121,7 +121,7 @@
                     <tbody>
 
                     @foreach( $discounts as $key =>$discount)
-                        <tr data-id="5" style="cursor: pointer;">
+                        <tr  data-id="5" style="">
                             <td data-field="id">{{$discounts->firstItem() + $key}}</td>
                             <td data-field="title">{{$discount->title}}</td>
                             <td><b class="badge rounded-pill bg-success">{{$discount->percent}}</b></td>

@@ -21,4 +21,17 @@ class Brand extends Model
         'slug',
         'image'
     ];
+
+    /*
+     |------------------------------
+     | Relation
+     |------------------------------
+     |
+     |
+     |
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

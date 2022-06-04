@@ -120,6 +120,23 @@
                     </ul>
                 </li>
 
+                {{--products--}}
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-layout-3-line"></i>
+                        <span>Proudct</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="true">
+                        <li>
+                            <a href="{{route('index.product')}}" class="">All Product</a>
+                        </li>
+                        <li>
+                            <a href="{{route('create.product')}}" class="">Create new</a>
+                        </li>
+
+
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->

@@ -44,6 +44,13 @@ ER
     title
 
 ----------------------------------------
+product
+-product-galleries
+-product-color
+-product-size
+-product-attributes
+-upsale
+-cross-sale
 
 # products
 
