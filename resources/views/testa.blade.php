@@ -21,7 +21,10 @@
 <div class="row  ">
 
     <div class="col-lg-10 border rounded-3 p-1 shadow bg-white m-auto">
-        <div class="row">
+        <form action="{{route('up')}}" enctype="multipart/form-data" method="post">
+            @method('post')
+            @csrf
+            <div class="row">
                 <div class="col-lg-8  m-auto  ">
                     <textarea name="" id="" class="form-control " cols="30" rows="3"></textarea>
                 </div>
@@ -30,11 +33,15 @@
                     <br>
                     <input type="button" class="btn btn-danger float-end" value="remove"/>
                 </div>
-        </div>
+            </div>
+
+
+            <button class="btn btn-success">upload image</button>
+        </form>
+
     </div>
 
 </div>
-
 
 
 {{--sciritp--}}

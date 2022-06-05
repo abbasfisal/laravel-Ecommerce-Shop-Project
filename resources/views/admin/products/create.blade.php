@@ -220,9 +220,21 @@
             {{--image--}}
             <div class="col-lg-10 m-auto">
                 <br>
-                <label for="cover" class="form-label">Select Image</label>
+                <label for="cover" class="form-label">Select Cover Image</label>
                 <input type="file" name="cover" class="form-control"/>
                 @error('cover')
+                <div class="text-danger">{{$message}}</div>
+                @enderror
+
+
+            </div>
+
+            {{--image--}}
+            <div class="col-lg-10 m-auto">
+                <br>
+                <label for="cover" class="form-label">Select Images for Product Gallery</label>
+                <input type="file" multiple name="galleries[]" class="form-control"/>
+                @error('galleries.*')
                 <div class="text-danger">{{$message}}</div>
                 @enderror
 

@@ -78,4 +78,10 @@ class Product extends Model
         return $this->hasMany(ProductDetail::class);
     }
 
+
+    public function product_galleries()
+    {
+        return $this->hasMany(ProductGalleries::class);
+    }
+
 }

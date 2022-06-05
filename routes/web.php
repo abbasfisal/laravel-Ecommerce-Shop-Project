@@ -147,3 +147,6 @@ Route::post('/my', function () {
      ->name('my');
 
 Route::view('bb', 'testa');
+Route::post('/bbb', function () {
+    dd(request()->all() ,request()->allFiles());
+})->name('up');

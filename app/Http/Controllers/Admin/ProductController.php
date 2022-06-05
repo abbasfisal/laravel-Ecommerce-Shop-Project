@@ -34,6 +34,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         ProductService::create($request);
+
         return redirect(route('create.product'))->with('success', config('shop.msg.create'));
     }
 
