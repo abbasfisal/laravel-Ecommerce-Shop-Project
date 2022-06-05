@@ -65,8 +65,6 @@
             <br>
             <div class="col-lg-10 m-auto" id="attributes-holder">
                 <input type="button" class="btn btn-info mb-1 shadow " id="btn-add-attribute" value="add new attribute">
-
-
             </div>
 
             <br>
@@ -237,8 +235,6 @@
                 @error('galleries.*')
                 <div class="text-danger">{{$message}}</div>
                 @enderror
-
-
             </div>
 
             {{--note --}}
@@ -253,6 +249,7 @@
                         @enderror
                     </div>
 
+                    {{--short description--}}
                     <div class="col-md-6">
                         <label for="short_description" class="form-label">Short Description </label>
                         <textarea name="short_description" class="form-control" id="" cols="10"

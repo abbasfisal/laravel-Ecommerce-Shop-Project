@@ -10,13 +10,15 @@ use App\Http\Controllers\Admin\Services\SizeService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\getSubCategoryRequest;
 use App\Http\Requests\StoreProductRequest;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        //TODO Pass proudct data as a table
-        return view('admin.products.index');
+        $products = ProductService::getWithPagination();
+
+        return view('admin.products.index' ,compact('products'));
     }
 
     public function create()
@@ -48,5 +50,12 @@ class ProductController extends Controller
         $subcategories = CategoryService::getSubCatByCategory($request->category_id);
 
         return response()->json($subcategories);
+    }
+
+
+    public function getProductById(Product $product , $slug)
+    {
+
+        return view('admin.products.product_details'  , compact('product'));
     }
 }

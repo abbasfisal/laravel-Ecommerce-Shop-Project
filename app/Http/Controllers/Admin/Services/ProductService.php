@@ -29,9 +29,11 @@ class ProductService extends Controller
             $request['active'] = $request->has('active') ? true : false;
 
             //get upload image Name
-             $request['image'] = uploadService::handle($request->file('cover'), config('shop.productCoverPath'), 'productCover');
+            $request['image'] = uploadService::handle($request->file('cover'), config('shop.productCoverPath'), 'productCover');
 
             //save product to proudcts table
+            $request['slug'] = SLUG($request->slug);
+
             $product = Product::create($request->toArray());
 
             //save Gallery
@@ -119,7 +121,7 @@ class ProductService extends Controller
                 $imageName = uploadService::handle($image, config('shop.productGalleris'), 'gallery');
 
 
-              $product->product_galleries()
+                $product->product_galleries()
                         ->create([
                             ProductGalleries::c_image => $imageName
                         ]);
@@ -127,6 +129,13 @@ class ProductService extends Controller
             }
         }
 
+
+    }
+
+    public static function getWithPagination($perPage = null)
+    {
+        return Product::query()
+                      ->paginate($perPage ?? config('shop.perPage'));
 
     }
 

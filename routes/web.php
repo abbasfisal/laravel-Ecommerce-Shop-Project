@@ -126,6 +126,10 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::get('/product', [ProductController::class, 'index'])
          ->name('index.product');
 
+    //get product by id (more details)
+    Route::get('/product/{product}/{slug}', [ProductController::class, 'getProductById'])
+         ->name('get.product');
+
     //show create form
     Route::get('product/create', [ProductController::class, 'create'])
          ->name('create.product');
@@ -148,5 +152,6 @@ Route::post('/my', function () {
 
 Route::view('bb', 'testa');
 Route::post('/bbb', function () {
-    dd(request()->all() ,request()->allFiles());
-})->name('up');
+    dd(request()->all(), request()->allFiles());
+})
+     ->name('up');
