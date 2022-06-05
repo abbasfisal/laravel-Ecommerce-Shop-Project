@@ -23,9 +23,9 @@ class ProductController extends Controller
     {
         $categories = CategoryService::getMainCategories();
         $brands = BrandService::getAll();
-        $sizes= SizeService::getAll();
+        $sizes = SizeService::getAll();
         $colors = ColorService::getAll();
-        return view('admin.products.create', compact('categories', 'brands' , 'colors','sizes'));
+        return view('admin.products.create', compact('categories', 'brands', 'colors', 'sizes'));
     }
 
     /**
@@ -34,7 +34,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         ProductService::create($request);
-        dd('sotred');
+        return redirect(route('create.product'))->with('success', config('shop.msg.create'));
     }
 
 

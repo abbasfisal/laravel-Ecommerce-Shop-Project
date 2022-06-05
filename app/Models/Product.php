@@ -73,4 +73,9 @@ class Product extends Model
                     ->withTimestamps();
     }
 
+    public function details()
+    {
+        return $this->hasMany(ProductDetail::class);
+    }
+
 }

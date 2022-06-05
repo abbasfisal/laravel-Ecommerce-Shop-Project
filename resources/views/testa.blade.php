@@ -18,26 +18,23 @@
 <br>
 
 
-<div class="row ">
-    <div class="col-lg-8 m-auto border">
-        <a id="btnadd" class="btn btn-info">add attribute</a>
-        <br>
-        <div class="row border" id="holder">
-            {{--<div id="mainholder1" class="row">
-                <div class="col-lg-5">
-                    <input type="text" class="form-control form-text" name="title" placeholder="enter title">
+<div class="row  ">
+
+    <div class="col-lg-10 border rounded-3 p-1 shadow bg-white m-auto">
+        <div class="row">
+                <div class="col-lg-8  m-auto  ">
+                    <textarea name="" id="" class="form-control " cols="30" rows="3"></textarea>
                 </div>
-                <div class="col-lg-5">
-                    <textarea name="desc" id="desc" class="form-text form-control"></textarea>
+                <div class="col-lg-4  ">
+                    <input type="text" class="form-control form-text"/>
+                    <br>
+                    <input type="button" class="btn btn-danger float-end" value="remove"/>
                 </div>
-                <div class="col-lg-2">
-                    <button class="btn btn-danger mybtn">remove</button>
-                </div>
-            </div>--}}
         </div>
     </div>
+
 </div>
-<button type="submit">send</button>
+
 
 
 {{--sciritp--}}
@@ -48,7 +45,7 @@
 <script src="{{asset('assets/libs/node-waves/waves.min.js')}}"></script>
 <script src="{{asset('assets/js/app.js')}}"></script>
 
-<script>
+{{--<script>
     $(function () {
         var i = 1;
         $("#btnadd").click(function () {
@@ -79,7 +76,7 @@
     });
 
 
-</script>
+</script>--}}
 
 </body>
 </html>

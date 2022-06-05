@@ -7,6 +7,12 @@
             {{--title--}}
             <br>
             <div class="col-lg-10 m-auto ">
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{session('success')}}
+                    </div>
+                @endif
+
                 <label for="title" class="form-label">Product Title</label>
                 <input type="text" value="{{old('title')}}" name="title" id="title" class="form-control form-text">
                 @error('title')
@@ -55,6 +61,13 @@
                 </div>
             </div>
 
+            {{--attributes--}}
+            <br>
+            <div class="col-lg-10 m-auto" id="attributes-holder">
+                <input type="button" class="btn btn-info mb-1 shadow " id="btn-add-attribute" value="add new attribute">
+
+
+            </div>
 
             <br>
             <div class="col-lg-10 m-auto">
@@ -70,7 +83,7 @@
                         </select>
 
                         @error('sizes.*')
-                            <div class="text-danger">{{$message}}</div>
+                        <div class="text-danger">{{$message}}</div>
                         @enderror
 
                     </div>
@@ -318,7 +331,7 @@
 
 
     </script>
-
+    <script src="{{asset('assets/js/add-attributes.js')}}"></script>
 
 @endpush
 {{--attribtues--}}

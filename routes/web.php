@@ -130,12 +130,20 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::get('product/create', [ProductController::class, 'create'])
          ->name('create.product');
 
+    //save product to db
     Route::post('/product', [ProductController::class, 'store'])
          ->name('store.product');
 
+    //get subcategory used by ajax in the create form
     Route::post('/product/subcategory', [ProductController::class, 'getSubCategory'])
          ->name('subcategory.product');
 });
 
 Route::view('/tt', 'test');
 
+Route::post('/my', function () {
+    dd(request()->all());
+})
+     ->name('my');
+
+Route::view('bb', 'testa');

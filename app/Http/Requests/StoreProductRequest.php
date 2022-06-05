@@ -25,10 +25,12 @@ class StoreProductRequest extends FormRequest
      */
     public function rules()
     {
+        return  [];
 
 
 
-        return [
+
+       /* return [
             "title" => 'required|min:4',
             "slug"  => 'required|min:4',
 
@@ -49,6 +51,6 @@ class StoreProductRequest extends FormRequest
             "note"              => 'nullable|string|min:4',
             "short_description" => 'required|min:4|string',
             "long_description"  => 'nullable|min:4|string',
-        ];
+        ];*/
     }
 }
