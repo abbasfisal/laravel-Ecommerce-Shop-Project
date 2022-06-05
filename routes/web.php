@@ -142,16 +142,4 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::post('/product/subcategory', [ProductController::class, 'getSubCategory'])
          ->name('subcategory.product');
 });
-
-Route::view('/tt', 'test');
-
-Route::post('/my', function () {
-    dd(request()->all());
-})
-     ->name('my');
-
-Route::view('bb', 'testa');
-Route::post('/bbb', function () {
-    dd(request()->all(), request()->allFiles());
-})
-     ->name('up');
+Route::view('/t' , 'home');
