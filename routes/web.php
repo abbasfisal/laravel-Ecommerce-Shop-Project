@@ -236,4 +236,9 @@ Route::get('/ss', function () {
     dd('get cookie',);
 });*/
 
+Route::get('/l', function () {
+    \Illuminate\Support\Facades\Session::flush();
+    \Illuminate\Support\Facades\Auth::logout();
+    return redirect(route('login'));
+});
 

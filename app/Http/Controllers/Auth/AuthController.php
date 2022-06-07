@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Auth\Services\AuthService;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Services\OTPService;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\OtpCheckRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\SetPasswordRequest;
@@ -69,6 +70,26 @@ class AuthController extends Controller
 
     }
 
+    /**
+     * Login User By Tel and password
+     *
+     * @param LoginRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function login(LoginRequest $request)
+    {
+
+        $result = AuthService::getUserWhere($request);
+
+        if ($result){
+            return redirect(route('index'));
+        }
+
+
+        return redirect('login')->with('fail', config('shop.msg.fail'));
+
+
+    }
     /*
      |------------------------------
      | private Method
@@ -82,7 +103,7 @@ class AuthController extends Controller
      * @param Request $request
      * @return string
      */
-    private static function getOtpFromRequest(Request $request)
+    private static function getOtpFromRequest(\Illuminate\Http\Request $request)
     {
         return $request->first . $request->second . $request->third . $request->fourth;
     }

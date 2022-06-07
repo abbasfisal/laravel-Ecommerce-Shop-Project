@@ -28,17 +28,18 @@
 
         <div class="card-body">
             <h3 class="text-center mt-0 mb-3">
-                <a href="index.html" class="logo"><img src="{{asset('assets/images/logo-light.png')}}" height="24"
+                <a href="" class="logo"><img src="{{asset('assets/images/logo-light.png')}}" height="24"
                                                        alt="logo-img"></a>
             </h3>
             <h5 class="text-center mt-0 text-color"><b>Sign In</b></h5>
 
-            <form class="form-horizontal mt-3 mx-3" action="index.html">
-
+            <form class="form-horizontal mt-3 mx-3" method="post" action="{{route('login')}}">
+                @csrf
+                @method('post')
                 <div class="form-group mb-3">
                     <div class="col-12">
-                        <input class="form-control @error('username') is-invalid @enderror" type="text"
-                               placeholder="Username Or mobile">
+                        <input name="username" class="form-control @error('username') is-invalid @enderror" type="text"
+                               placeholder="mobile">
                     </div>
                     @error('username')
                     <div class="p-2  text-danger">
@@ -49,7 +50,7 @@
 
                 <div class="form-group mb-3">
                     <div class="col-12">
-                        <input class="form-control @error('password') is-invalid @enderror" type="password"
+                        <input name="password" class="form-control @error('password') is-invalid @enderror" type="password"
                                placeholder="Password">
                     </div>
                     @error('password')
@@ -77,6 +78,10 @@
                         </button>
                     </div>
                 </div>
+                @if(session('fail'))
+                <br>
+                <div class="alert alert-danger">{{session('fail')}}</div>
+                @endif
 
                 <div class="form-group row mt-4 mb-0">
                     <div class="col-sm-7">

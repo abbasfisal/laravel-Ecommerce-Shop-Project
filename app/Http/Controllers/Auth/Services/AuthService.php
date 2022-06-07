@@ -11,7 +11,11 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthService extends Controller
 {
-    //
+    /**
+     * Create New Or Regenerate Otp Code
+     * @param Request $request
+     * @return false|mixed
+     */
     public static function register(Request $request)
     {
 
@@ -33,6 +37,10 @@ class AuthService extends Controller
 
     }
 
+    /**
+     * save password to db
+     * @param Request $request
+     */
     public static function setPassword(Request $request)
     {
         $user = User::query()
@@ -42,8 +50,32 @@ class AuthService extends Controller
                         'type'     => User::user_type,
                         'password' => Hash::make($request->password),
                     ]);
+
         Auth::login($user);
 
+    }
+
+    /**
+     * if find a user by tel and password then login this user
+     *
+     * @param Request $request
+     * @return bool
+     */
+    public static function getUserWhere(Request $request)
+    {
+
+        $user = User::query()
+                    ->where('tel', $request->username)
+                    ->get();
+
+        if ($user->count()) {
+
+            if (Hash::check($request->password, $user[0]->password)) {
+                Auth::loginUsingId($user[0]->id);
+                return true;
+            }
+        }
+        return false;
     }
     /*
      |------------------------------
