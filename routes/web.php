@@ -8,17 +8,43 @@ use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\StateController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
+/*
+ |------------------------------
+ | Register / Login
+ |------------------------------
+ */
+//show register view
+Route::view('/register', 'auth.register')
+     ->name('show.register');
 
-    return view('admin.layouts.app');
-});
+Route::post('/register', [AuthController::class, 'register'])
+     ->name('register');
 
+//show login view
+Route::view('/login', 'auth.login')
+     ->name('show.login');
 
+//show otp view
+Route::view('/otp/verify', 'auth.otp')
+     ->name('show.otp');
+
+Route::post('/optcheck', [AuthController::class, 'otpCheck'])
+     ->name('otp.check');
+
+Route::view('/get/password', 'auth.password')
+     ->name('get.password');
+
+Route::post('/set/password', [AuthController::class, 'setPassword'])
+     ->name('set.password');
+
+//--------------------------------
 Route::group(['prefix' => 'dashboard'], function () {
-
+    Route::view('/', 'admin.layouts.app');
 
     /*
      |------------------------------
@@ -142,4 +168,67 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::post('/product/subcategory', [ProductController::class, 'getSubCategory'])
          ->name('subcategory.product');
 });
-Route::view('/t' , 'home');
+//index shop
+Route::get('/', [HomeController::class, 'index'])
+     ->name('index');
+
+//show single product
+Route::get('/{product}/{slug}', [HomeController::class, 'getSingleProduct'])
+     ->name('get.product.home');
+
+/*
+ |------------------------------
+ | for test only
+ |------------------------------
+ |
+ |
+ |
+ */
+Route::view('/t', 'singleproduct');
+
+Route::get('/cart/{id}/{title}/{cnt}', function ($id, $title, $cnt) {
+
+    $cart[1] = ['id' => 1, 'title' => 'phone', 'cnt' => 2];
+    $cart[2] = ['id' => 2, 'title' => 'tshirt', 'cnt' => 3];
+
+    $cart = serialize($cart);
+
+
+    $a = cookie('cart', $cart, 20);
+
+    return redirect('/t')->withCookie($a);
+    //exist
+    //++
+    //not exist
+    //create
+});
+
+Route::view('t', 'testa');
+
+Route::get('/ss', function () {
+
+    $data[1] = ['name' => 're', 'tel' => 2430949];
+    $data[2] = ['name' => 're', 'tel' => 2430949];
+    $data[3] = ['name' => 're', 'tel' => 2430949];
+
+    $data = serialize($data);
+    $mycookie = cookie()->forever('my-data', $data);
+dd($mycookie);
+    return redirect('/t')->withoutCookie('a')->with('hii' ,'by');
+
+
+});
+
+/*Route::get('/hi', function () {
+    $des = unserialize(request()->cookie('cart'));
+    echo "<pre>";
+    foreach ($des as $d) {
+        if ($d['id'] == 2) {
+            dd('yess');
+        }
+    }
+    echo "</pre>";
+    dd('get cookie',);
+});*/
+
+

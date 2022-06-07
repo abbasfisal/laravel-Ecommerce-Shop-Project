@@ -43,10 +43,10 @@ class CreateProductsTable extends Migration
             //-------------------------------------
             $table->string('image');
 
-            $table->string('short_description')
+            $table->text('short_description')
                   ->nullable();
 
-            $table->text('long_description')
+            $table->longText('long_description')
                   ->nullable();
 
             $table->string('note')

@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8"/>
-    <title>Register | Appzia - Admin & Dashboard Template</title>
+    <title>Register | Shop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
     <meta content="Themesdesign" name="author"/>
@@ -27,6 +27,11 @@
 
         <div class="card-body shadow">
             <br>
+
+
+            @if(session('msg'))
+                <h4 class=" text-center text-danger">{{session('msg')}}</h4>
+            @endif
             <h5 class="ssstext-center mt-0 text-color text-center">
                 <b>
                     Please enter the one time password <br> to verify
@@ -34,15 +39,23 @@
                 </b>
             </h5>
 
-            <form class="form-horizontal mt-3" action="index.html">
-
+            <form class="form-horizontal mt-3" method="post" action="{{route('otp.check')}}">
+                @csrf
+                @method('post')
                 {{--Mobile--}}
+
+
 
                 <div class="container height-100 d-flex justify-content-center align-items-center">
                     <div class="position-relative">
                         <div class="card p-2 text-center">
 
-                            <div class="text-color"><span>A code has been sent to</span> <small>*******9897</small>
+                            <div class="text-color">
+
+                                @if(session('otp'))
+                                    <strong>{{session('otp')}}</strong>
+                                @endif
+
                             </div>
                             <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
                                 <input
@@ -60,11 +73,7 @@
 
                             </div>
                             <br>
-                            @if(session('otp'))
-                                <div class="alert text-danger">
-                                    <b>{{session('otp')}}You OTP COde is not rigt</b>
-                                </div>
-                            @endif
+
 
                         </div>
                         <div class="card-2">
@@ -79,7 +88,8 @@
                 {{--Register Button--}}
                 <div class="form-group text-center mt-4">
                     <div class="col-12">
-                        <button class="btn shadow btn-warning btn-block btn-lg waves-effect waves-light w-100" type="submit">
+                        <button class="btn shadow btn-warning btn-block btn-lg waves-effect waves-light w-100"
+                                type="submit">
                             Confirm
                         </button>
                     </div>

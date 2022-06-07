@@ -2,29 +2,49 @@
 
 use Illuminate\Support\Str;
 
+
 if (!function_exists('SLUG')) {
+    /**
+     * generate slug
+     * @param $text
+     * @return string
+     */
     function SLUG($text)
     {
         return Str::lower(Str::replace(' ', '-', $text));
     }
 }
 
-/**
- * create a unique text with given prefix
- */
 if (!function_exists('UNIQ')) {
+
+    /**
+     * create a unique text with given prefix
+     */
     function UNIQ($prefix)
     {
         return uniqid($prefix . '-' . md5(now()) . '-');
     }
 }
 
-/**
- * return successfully created message
- */
+
 if (!function_exists('msg_succ')) {
+    /**
+     * return successfully created message
+     */
     function msg_succ()
     {
         return config('shop.msg.create');
     }
 }
+
+
+if (!function_exists('NEW_OTP')) {
+    /**
+     * Generate 6 digit for OTP CODE
+     */
+    function NEW_OTP()
+    {
+        return rand(1111, 9999);
+    }
+}
+
