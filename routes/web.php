@@ -29,6 +29,9 @@ Route::post('/register', [AuthController::class, 'register'])
 Route::view('/login', 'auth.login')
      ->name('show.login');
 
+Route::post('/login', [AuthController::class, 'login'])
+     ->name('login');
+
 //show otp view
 Route::view('/otp/verify', 'auth.otp')
      ->name('show.otp');
@@ -213,8 +216,10 @@ Route::get('/ss', function () {
 
     $data = serialize($data);
     $mycookie = cookie()->forever('my-data', $data);
-dd($mycookie);
-    return redirect('/t')->withoutCookie('a')->with('hii' ,'by');
+    dd($mycookie);
+    return redirect('/t')
+        ->withoutCookie('a')
+        ->with('hii', 'by');
 
 
 });

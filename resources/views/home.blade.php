@@ -6,7 +6,7 @@
             @foreach($products as $product)
                 <div class="col-md-3 ">
                     <div class="card ">
-                        <img src="{{config('shop.productCoverPath').$product->image}}" class="card-img-top" alt="...">
+                        <img src="{{config('shop.productCoverPath').$product->image}}" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title text-center">
                                 <a href="{{route('get.product.home',[$product->id , $product->slug])}}">

@@ -66,8 +66,8 @@
             {{--basket --}}
             @guest
             <div class="">
-                <a href="" class="btn btn-outline-success">login</a>
-                <a href="" class="btn btn-outline-success">Register</a>
+                <a href="{{route('show.login')}}" class="btn btn-outline-success">login</a>
+                <a href="{{route('show.register')}}" class="btn btn-outline-success">Register</a>
             </div>
             @endguest
             @auth

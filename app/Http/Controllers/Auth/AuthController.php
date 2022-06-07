@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Auth\Services\AuthService;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Services\OTPService;
 use App\Http\Requests\OtpCheckRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\SetPasswordRequest;
-use App\Models\OTPCode;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Request;
 
 class AuthController extends Controller
 {
@@ -27,32 +28,36 @@ class AuthController extends Controller
         $myTelCookie = cookie('tel', $request->tel, 400);
 
         return redirect(route('show.otp'))
-            ->with('otp' , config('shop.otp_succ') . $otp_code)
+            ->with('otp', config('shop.otp_succ') . $otp_code)
             ->withCookie($myTelCookie);
     }
 
-
+    /**
+     * Check OTP Code
+     * @param OtpCheckRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function otpCheck(OtpCheckRequest $request)
     {
-        $otpcode = $request->first . $request->second . $request->third . $request->fourth;
+        $cnt = OTPService::isExists(
+            self::getOtpFromRequest($request),
+            Cookie::get('tel')
+        );
 
-        //get coockie tel
-
-        $cnt = OTPCode::query()
-                      ->where('tel', '=', Cookie::get('tel'))
-                      ->where('code', '=', $otpcode)
-                      ->get();
-
+        //set cookie
         $tel = cookie('tel', Cookie::get('tel'), 120);
 
+        //otp was exist so redirect to set password
         if ($cnt->count()) {
-            return redirect(route('get.password'))->with('tel', $request->tel)->withCookie($tel);
+            return
+                redirect(route('get.password'))
+                    ->with('tel', $request->tel)
+                    ->withCookie($tel);
         }
 
-
-
+        //otp wasnt exist so redirect back
         return redirect(route('show.otp'))
-            ->with( 'msg', 'otp was wrong')
+            ->with('msg', 'otp was wrong')
             ->withCookie($tel);
 
     }
@@ -62,5 +67,23 @@ class AuthController extends Controller
         AuthService::setPassword($request);
         return redirect(route('index'));
 
+    }
+
+    /*
+     |------------------------------
+     | private Method
+     |------------------------------
+     |
+     */
+
+    /**
+     * Mix OTP code together  which is come form otp.blade.php view
+     *
+     * @param Request $request
+     * @return string
+     */
+    private static function getOtpFromRequest(Request $request)
+    {
+        return $request->first . $request->second . $request->third . $request->fourth;
     }
 }

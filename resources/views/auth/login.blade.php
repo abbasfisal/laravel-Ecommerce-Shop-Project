@@ -28,7 +28,7 @@
 
         <div class="card-body">
             <h3 class="text-center mt-0 mb-3">
-                <a href="index.html" class="logo"><img src="assets/images/logo-light.png" height="24"
+                <a href="index.html" class="logo"><img src="{{asset('assets/images/logo-light.png')}}" height="24"
                                                        alt="logo-img"></a>
             </h3>
             <h5 class="text-center mt-0 text-color"><b>Sign In</b></h5>
@@ -37,7 +37,7 @@
 
                 <div class="form-group mb-3">
                     <div class="col-12">
-                        <input class="form-control @error('username') is-invalid @enderror" type="text" required=""
+                        <input class="form-control @error('username') is-invalid @enderror" type="text"
                                placeholder="Username Or mobile">
                     </div>
                     @error('username')
@@ -49,7 +49,7 @@
 
                 <div class="form-group mb-3">
                     <div class="col-12">
-                        <input class="form-control @error('password') is-invalid @enderror" type="password" required=""
+                        <input class="form-control @error('password') is-invalid @enderror" type="password"
                                placeholder="Password">
                     </div>
                     @error('password')
