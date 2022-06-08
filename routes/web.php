@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\User\UserController;
+use App\Models\Wishlist;
 use Illuminate\Support\Facades\Route;
 
 
@@ -44,6 +46,30 @@ Route::view('/get/password', 'auth.password')
 
 Route::post('/set/password', [AuthController::class, 'setPassword'])
      ->name('set.password');
+
+/*
+ |------------------------------
+ | User
+ |------------------------------
+ |
+ |
+ |
+ */
+Route::group(['prefix', 'user'], function () {
+
+    Route::get('/add/wishlist/{product}', [UserController::class, 'addWishList'])
+         ->name('add.wish.user')
+         ->middleware('userauth');
+
+    Route::get('/wishlist', [UserController::class, 'getUserWishList'])
+         ->name('show.wish.user');
+
+    Route::get('/wishlist/{wishlist}', [UserController::class, 'removeWishList'])
+         ->name('del.wish.user')
+         ->can('delete', 'wishlist');
+
+});
+
 
 //--------------------------------
 Route::group(['prefix' => 'dashboard'], function () {

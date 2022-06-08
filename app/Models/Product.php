@@ -90,4 +90,8 @@ class Product extends Model
         return $this->hasMany(ProductGalleries::class);
     }
 
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 }

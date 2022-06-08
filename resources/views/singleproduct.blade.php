@@ -3,6 +3,10 @@
 
 @endpush
 @section('content')
+    @if(session('succ-add-wishlist'))
+        <div class="alert alert-success col-lg-11 m-auto mb-2">{{session('succ-add-wishlist')}}</div>
+    @endif
+
     <div class="col-lg-12 ">
         <div class="row justify-content-center">
             <div class="col-lg-5 p-3 bg-white  shadow rounded-3 border">

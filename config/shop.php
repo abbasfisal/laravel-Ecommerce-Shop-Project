@@ -41,8 +41,11 @@ return [
      |
      |
      */
-    'msg'=> [
-        'create' => 'successfully created',
-        'fail'   => 'UserName | Password is Invalid'
+    'msg'               => [
+        'create'             => 'successfully created',
+        'delete'             => 'successfully Delete',
+        'fail'               => 'UserName | Password is Invalid',
+        'add_wishlist'       => 'product successfully added to your wishlist ',
+        'was_exist_wishlist' => 'product was exist in your wishlist'
     ]
 ];

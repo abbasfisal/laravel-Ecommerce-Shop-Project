@@ -51,12 +51,17 @@ class User extends Authenticatable
 
     /*
      |------------------------------
-     | methods
+     | Relations
      |------------------------------
      |
      |
      |
      */
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 
 
 }

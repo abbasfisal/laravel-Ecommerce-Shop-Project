@@ -1,6 +1,9 @@
 @extends('user.layouts.app')
 @section('content')
-
+    {{\Illuminate\Support\Facades\Auth::loginUsingId(6)}}
+    @if(session('succ-add-wishlist'))
+        <div class="alert alert-success col-lg-11 m-auto mb-2">{{session('succ-add-wishlist')}}</div>
+    @endif
     <div class="col-lg-11  m-auto">
         <div class="row justify-content-between">
             @foreach($products as $product)
@@ -34,7 +37,8 @@
                                 <i class="ri-shopping-bag-2-fill"></i>
                                 Add to Basket
                             </a>
-                            <a href="#" class="btn btn-outline-danger">
+
+                            <a href="{{route('add.wish.user' ,$product->id)}}" class="btn btn-outline-danger">
                                 <i class="ri-heart-2-fill"></i>
                             </a>
                         </div>
