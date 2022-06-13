@@ -32,6 +32,7 @@ class User extends Authenticatable
         'name',
         'tel',
         'username',
+        'type',
         'valid',
         'password',
     ];

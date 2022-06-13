@@ -9,11 +9,20 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\OtpCheckRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\SetPasswordRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 
 class AuthController extends Controller
 {
+    public function logout()
+    {
+        Auth::logout();
+
+        return Redirect::to(route('index'));
+    }
     /**
      * register a new user
      */
@@ -79,14 +88,26 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
 
-        $result = AuthService::getUserWhere($request);
+        $user = AuthService::getUserWhere($request);
 
-        if ($result){
+
+
+        //admin login
+        if ($user->type == User::admin_type) {
+            Auth::login($user);
+            return redirect(route('index.admin'));
+        }
+
+        //user login
+        if ($user->type == User::user_type) {
+            Auth::login($user);
             return redirect(route('index'));
         }
 
 
-        return redirect('login')->with('fail', config('shop.msg.fail'));
+
+        if ($user === false)
+            return redirect('login')->with('fail', config('shop.msg.fail'));
 
 
     }

@@ -59,20 +59,20 @@ class AuthService extends Controller
      * if find a user by tel and password then login this user
      *
      * @param Request $request
-     * @return bool
+     * @return mixed
      */
     public static function getUserWhere(Request $request)
     {
 
         $user = User::query()
                     ->where('tel', $request->username)
-                    ->get();
+                    ->first();
 
-        if ($user->count()) {
+        if (!empty($user)) {
 
-            if (Hash::check($request->password, $user[0]->password)) {
-                Auth::loginUsingId($user[0]->id);
-                return true;
+            if (Hash::check($request->password, $user->password)) {
+                return $user ;
+
             }
         }
         return false;

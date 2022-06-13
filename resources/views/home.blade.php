@@ -1,6 +1,6 @@
 @extends('user.layouts.app')
 @section('content')
-    {{\Illuminate\Support\Facades\Auth::loginUsingId(6)}}
+
     @if(session('succ-add-wishlist'))
         <div class="alert alert-success col-lg-11 m-auto mb-2">{{session('succ-add-wishlist')}}</div>
     @endif
