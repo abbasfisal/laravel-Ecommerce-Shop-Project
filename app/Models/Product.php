@@ -94,4 +94,9 @@ class Product extends Model
     {
         return $this->hasMany(Wishlist::class);
     }
+
+    public function baskets()
+    {
+        return $this->hasMany(Basket::class);
+    }
 }

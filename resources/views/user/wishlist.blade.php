@@ -13,6 +13,7 @@
                 <tr style="">
                     <th>ID</th>
                     <th>title</th>
+                    <th>price</th>
                     <th>image</th>
                     <th class="text-center">Opt</th>
                 </tr>
@@ -26,6 +27,9 @@
                             <a href="{{route('get.product.home',[$wish->product->id ,$wish->product->slug])}}">
                                 {{$wish->product->title}}
                             </a>
+                        </td>
+                        <td>
+                            {{$wish->product->price}}
                         </td>
                         <td>
                             <img class="avatar-sm rounded-3 shadow"

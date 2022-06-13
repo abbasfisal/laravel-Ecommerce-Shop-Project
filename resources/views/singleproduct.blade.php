@@ -85,9 +85,26 @@
                 <br>
                 <br>
                 <div class="col-lg-6 m-auto ">
-                    <button class="btn btn-pink form-control">
+                    <button value="{{$product->id}}" id="addbasket" class="btn btn-pink form-control">
                         <strong>Add To Basket</strong>
                     </button>
+                    <br>
+                    <br>
+                    <div id="interaction" class="col  text-center">
+                        <button id="decrease" value="{{$product->id}}" class="btn btn-pink">
+                            <strong>-</strong>
+                        </button>
+                        <label id="count">{{$product->count}}</label>
+                        <button valu="{{$product->id}}" id="increase" class="btn btn-pink">
+                            <strong>+</strong>
+                        </button>
+                        <br>
+                        <br>
+                        <button value="{{$product->id}}" id="delbtn" class="btn btn-pink">
+                            <strong>remove</strong>
+                        </button>
+                    </div>
+
                 </div>
 
             </div>
@@ -176,6 +193,9 @@
     <script>
         $(function () {
 
+            $("#interaction").hide();
+
+            /*gallery*/
             $("#exzoom").exzoom({
 
                 // thumbnail nav options
@@ -189,10 +209,83 @@
                 "autoPlay": true,
 
                 // autoplay interval in milliseconds
-                "autoPlayTimeout": 2000
+                "autoPlayTimeout": 5000
 
             });
 
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': '{{@csrf_token()}}',
+
+                }
+            })
+
+
+            $("#addbasket").click(function () {
+
+                addBasket('{{route('add.basket.user')}}');
+
+            })
+
+            $("#increase").click(function () {
+                addBasket('{{route('add.basket.user')}}');
+            });
+
+
+            $("#decrease").click(function () {
+                addBasket('{{route('dec.basket.user')}}');
+            });
+
+            $("#delbtn").click(function () {
+
+                addBasket('{{route('del.basket.user')}}' , true);
+
+            });
+
+            function addBasket(url, active=false) {
+
+                var formData = {
+                    'product_id': $("#addbasket").attr('value')
+                }
+
+                $.ajax({
+
+                    data: formData,
+                    url: url,
+                    type: 'POST',
+                    dataType: 'json',
+
+                    success: function (data) {
+                        if (active === true) {
+                            $("#addbasket").show();
+                            $("#interaction").hide();
+                        } else {
+
+
+                            $("#addbasket").hide();
+                            $("#interaction").show();
+                        }
+                        data.forEach(el => {
+                            $("#count").text(el.count)
+
+                        })
+
+                        console.log(data);
+                    },
+                    error: function (xhr, status, error) {
+                        if (xhr.status === 403)
+                            window.location = '{{route('register')}}';
+                        /*  alert(xhr.status);
+                          alert(status);
+                          alert(error);*/
+                        /* alert(error.reponseText);
+                         alert(a);
+                         console.log(error)*/
+
+                    }
+                })
+            }
         });
     </script>
 @endpush

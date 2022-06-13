@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
  | Register / Login
  |------------------------------
  */
+
 //show register view
 Route::view('/register', 'auth.register')
      ->name('show.register');
@@ -67,6 +68,17 @@ Route::group(['prefix', 'user'], function () {
     Route::get('/wishlist/{wishlist}', [UserController::class, 'removeWishList'])
          ->name('del.wish.user')
          ->can('delete', 'wishlist');
+
+    //add new product to basket , increase count
+    Route::post("/basket/add" , [UserController::class , 'addBasket'])
+        ->name('add.basket.user')->middleware('userauth');
+
+    //decrease proudct in basket cout field
+    Route::post("/basket/dec" , [UserController::class , 'decCount'])
+        ->name('dec.basket.user')->middleware('userauth');
+
+    Route::post('/basket/del', [UserController::class , 'delBasket'])
+        ->name('del.basket.user');
 
 });
 
