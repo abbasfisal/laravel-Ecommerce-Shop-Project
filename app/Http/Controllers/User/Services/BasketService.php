@@ -4,6 +4,9 @@ namespace App\Http\Controllers\User\Services;
 
 use App\Http\Controllers\Controller;
 use App\Models\Basket;
+use App\Models\Product;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class BasketService extends Controller
 {
@@ -12,11 +15,13 @@ class BasketService extends Controller
      * @param $authUserId
      * @param $product_id
      */
-    public static function add($authUserId, $product_id)
+    public static function add($authUserId, Request $request)
     {
         $basket = Basket::query()
                         ->where('user_id', $authUserId)
-                        ->where('product_id', $product_id)
+                        ->where('product_id', $request->product_id)
+                        ->where('size_id', $request->size)
+                        ->where('color_id', $request->color)
                         ->first();
 
         //if exist just add the count number ++
@@ -25,21 +30,35 @@ class BasketService extends Controller
 
             $basket->update([
                 'count' => $count
+
             ]);
 
-            return $basket->toArray();
+            return 'updated';
         }
 
         //wasnt exist , so create it
 
-        $basket = Basket::query()
-                        ->create([
-                            'user_id'    => $authUserId,
-                            'product_id' => $product_id,
-                            'count'      => 1
-                        ]);
+        $data = Product::query()
+                       ->where('id', $request->product_id)
+                       ->first();
 
-        return $basket;
+        if (!empty($data)) {
+            $attr_json = $data->toArray();
+            $attr_json = Arr::except($attr_json, ['short_description', 'long_description', 'note']);
+
+        }
+
+        Basket::query()
+              ->create([
+                  'user_id'    => $authUserId,
+                  'product_id' => $request->product_id,
+                  'size_id'    => $request->size,
+                  'color_id'   => $request->color,
+                  'attributes' => isset($attr_json) ? json_encode($attr_json) : null,
+                  'count'      => 1
+              ]);
+
+        return 'added';
     }
 
     /**
@@ -47,20 +66,22 @@ class BasketService extends Controller
      * @param int|null $id
      * @param $product_id
      */
-    public static function decrease($authUserId, $product_id)
+    public static function decrease($authUserId, $basketId)
     {
         $basket = Basket::query()
                         ->where('user_id', $authUserId)
-                        ->where('product_id', $product_id)
+                        ->where('id', $basketId)
                         ->first();
+
 
         if ($basket->count()) {
             //decrase
-            $count = (int)$basket->count > 0 ? (int)$basket->count - 1 : 0;
+
+            $count = (int)$basket->count > 1 ? (int)$basket->count - 1 : 1;
 
             $basket->update(['count' => $count]);
 
-            return $basket->toArray();
+            return $count > 1 ? true : false;
         }
         return false;
 
@@ -72,11 +93,11 @@ class BasketService extends Controller
      * @param int|null $id
      * @param $product_id
      */
-    public static function delete($authUserId, $product_id)
+    public static function delete($authUserId, $basketId)
     {
         $basket = Basket::query()
                         ->where('user_id', $authUserId)
-                        ->where('product_id', $product_id)
+                        ->where('id', $basketId)
                         ->first();
 
         if (!empty($basket)) {

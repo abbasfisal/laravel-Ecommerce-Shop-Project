@@ -7,6 +7,11 @@
         <div class="alert alert-success col-lg-11 m-auto mb-2">{{session('succ-add-wishlist')}}</div>
     @endif
 
+    @if(session('succ'))
+
+        <div class="alert alert-success col-lg-11 m-auto mb-2">{{session('succ')}}</div>
+    @endif
+
     <div class="col-lg-12 ">
         <div class="row justify-content-center">
             <div class="col-lg-5 p-3 bg-white  shadow rounded-3 border">
@@ -29,6 +34,9 @@
                 </div>
             </div>
             <div class="col-lg-1 p-3"></div>
+
+            @csrf
+            @method('post')
             <div class="col-lg-5 bg-white rounded-3 shadow   ">
                 {{--title--}}
                 <h4 class="p-3">
@@ -54,60 +62,65 @@
                     <hr>
                 @endif
                 {{--color--}}
-                @if(count($product->colors))
-                    <strong>Select Color</strong><br>
-                    <div class="mt-2">
-                        @foreach($product->colors as $color)
-                            <div class=" d-inline-block p-2 rounded-3 shadow">
-                                <input type="radio" name="color" value="{{$color->id}}">
-                                <img width="40" height="40" class=" rounded-circle"
-                                     style="background-color: {{$color->code}}" alt="">
-                                <span class="badge badge-soft-info">{{$color->name}}</span>
-                            </div>
-                        @endforeach
-                    </div>
-                    <hr>
-                @endif
-                {{--size--}}
-                @if(count($product->sizes))
-                    <div class="col-lg-2">
-                        <strong>size</strong>: <strong>M</strong>
-                        <select name="size" id="" class="form-control form-select mt-2 ">
-                            @foreach($product->sizes as $size)
-                                <option value="{{$size->id}}">{{$size->title}}</option>
-
+                <form action="{{route('add.basket.user')}}" method="post">
+                    @csrf
+                    @method('post')
+                    <input type="hidden" value="{{$product->id}}" name="product_id" />
+                    @if(count($product->colors))
+                        <strong>Select Color</strong><br>
+                        <div class="mt-2">
+                            @foreach($product->colors as $color)
+                                <div class=" d-inline-block p-2 rounded-3 shadow">
+                                    <input checked type="radio" name="color" value="{{$color->id}}">
+                                    <img width="40" height="40" class=" rounded-circle"
+                                         style="background-color: {{$color->code}}" alt="">
+                                    <span class="badge badge-soft-info">{{$color->name}}</span>
+                                </div>
                             @endforeach
-                        </select>
-                    </div>
-                    <hr class="col-lg-5 m-auto">
-                @endif
-                {{--button--}}
-                <br>
-                <br>
-                <div class="col-lg-6 m-auto ">
-                    <button value="{{$product->id}}" id="addbasket" class="btn btn-pink form-control">
-                        <strong>Add To Basket</strong>
-                    </button>
+                        </div>
+                        <hr>
+                    @endif
+                    {{--size--}}
+                    @if(count($product->sizes))
+                        <div class="col-lg-2">
+                            <strong>size</strong>: <strong>M</strong>
+                            <select name="size" id="" class="form-control form-select mt-2 ">
+                                @foreach($product->sizes as $size)
+                                    <option value="{{$size->id}}">{{$size->title}}</option>
+
+                                @endforeach
+                            </select>
+                        </div>
+                        <hr class="col-lg-5 m-auto">
+                    @endif
+                    {{--button--}}
                     <br>
                     <br>
-                    <div id="interaction" class="col  text-center">
-                        <button id="decrease" value="{{$product->id}}" class="btn btn-pink">
-                            <strong>-</strong>
-                        </button>
-                        <label id="count">{{$product->count}}</label>
-                        <button valu="{{$product->id}}" id="increase" class="btn btn-pink">
-                            <strong>+</strong>
+                    <div class="col-lg-6 m-auto ">
+                        <button value="{{$product->id}}" id="addbasket" class="btn btn-pink form-control">
+                            <strong>Add To Basket</strong>
                         </button>
                         <br>
                         <br>
-                        <button value="{{$product->id}}" id="delbtn" class="btn btn-pink">
-                            <strong>remove</strong>
-                        </button>
+                        <div id="interaction" class="col  text-center">
+                            <button id="decrease" value="{{$product->id}}" class="btn btn-pink">
+                                <strong>-</strong>
+                            </button>
+                            <label id="count">{{$product->count}}</label>
+                            <button valu="{{$product->id}}" id="increase" class="btn btn-pink">
+                                <strong>+</strong>
+                            </button>
+                            <br>
+                            <br>
+                            <button value="{{$product->id}}" id="delbtn" class="btn btn-pink">
+                                <strong>remove</strong>
+                            </button>
+                        </div>
+
                     </div>
-
-                </div>
-
+                </form>
             </div>
+
         </div>
 
         {{-- Short / long Description / comment --}}
@@ -214,78 +227,8 @@
             });
 
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': '{{@csrf_token()}}',
+          
 
-                }
-            })
-
-
-            $("#addbasket").click(function () {
-
-                addBasket('{{route('add.basket.user')}}');
-
-            })
-
-            $("#increase").click(function () {
-                addBasket('{{route('add.basket.user')}}');
-            });
-
-
-            $("#decrease").click(function () {
-                addBasket('{{route('dec.basket.user')}}');
-            });
-
-            $("#delbtn").click(function () {
-
-                addBasket('{{route('del.basket.user')}}' , true);
-
-            });
-
-            function addBasket(url, active=false) {
-
-                var formData = {
-                    'product_id': $("#addbasket").attr('value')
-                }
-
-                $.ajax({
-
-                    data: formData,
-                    url: url,
-                    type: 'POST',
-                    dataType: 'json',
-
-                    success: function (data) {
-                        if (active === true) {
-                            $("#addbasket").show();
-                            $("#interaction").hide();
-                        } else {
-
-
-                            $("#addbasket").hide();
-                            $("#interaction").show();
-                        }
-                        data.forEach(el => {
-                            $("#count").text(el.count)
-
-                        })
-
-                        console.log(data);
-                    },
-                    error: function (xhr, status, error) {
-                        if (xhr.status === 403)
-                            window.location = '{{route('register')}}';
-                        /*  alert(xhr.status);
-                          alert(status);
-                          alert(error);*/
-                        /* alert(error.reponseText);
-                         alert(a);
-                         console.log(error)*/
-
-                    }
-                })
-            }
         });
     </script>
 @endpush

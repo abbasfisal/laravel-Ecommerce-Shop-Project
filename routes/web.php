@@ -57,20 +57,20 @@ Route::post('/set/password', [AuthController::class, 'setPassword'])
  |
  |
  */
-Route::group(['prefix', 'user'], function () {
+Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
 
     Route::get('/logout', [AuthController::class, 'logout'])
-         ->name('logout')
-         ->middleware('userauth');
+         ->name('logout');
 
 
     Route::get('/add/wishlist/{product}', [UserController::class, 'addWishList'])
          ->name('add.wish.user')
-         ->middleware('userauth');
+         ;
 
     Route::get('/wishlist', [UserController::class, 'getUserWishList'])
          ->name('show.wish.user');
 
+    //remove wishlist
     Route::get('/wishlist/{wishlist}', [UserController::class, 'removeWishList'])
          ->name('del.wish.user')
          ->can('delete', 'wishlist');
@@ -78,15 +78,21 @@ Route::group(['prefix', 'user'], function () {
     //add new product to basket , increase count
     Route::post("/basket/add", [UserController::class, 'addBasket'])
          ->name('add.basket.user')
-         ->middleware('userauth');
+         ;
 
-    //decrease proudct in basket cout field
-    Route::post("/basket/dec", [UserController::class, 'decCount'])
-         ->name('dec.basket.user')
-         ->middleware('userauth');
+    //decrease proudct in basket count field
+    Route::get("/basket/dec/{basket}", [UserController::class, 'decCount'])
+         ->name('dec.basket.user');
 
-    Route::post('/basket/del', [UserController::class, 'delBasket'])
+
+    //remove basket
+    Route::get('/basket/del/{basket}', [UserController::class, 'delBasket'])
          ->name('del.basket.user');
+
+
+    Route::get('/basket/show/all', [UserController::class, 'showAllBasket'])
+         ->name('all.basket.user');
+
 
 });
 
@@ -218,6 +224,7 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::post('/product/subcategory', [ProductController::class, 'getSubCategory'])
          ->name('subcategory.product');
 });
+
 //index shop
 Route::get('/', [HomeController::class, 'index'])
      ->name('index');

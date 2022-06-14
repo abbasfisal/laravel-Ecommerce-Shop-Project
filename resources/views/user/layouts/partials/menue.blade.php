@@ -7,7 +7,8 @@
 
                 <a href="{{route('index')}}" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <img src="{{asset('assets/images/logo-sm-light.png')}}" alt="logo-sm-light" height="22">
+                                    <img src="{{asset('assets/images/logo-sm-light.png')}}" alt="logo-sm-light"
+                                         height="22">
                                 </span>
                     <span class="logo-lg">
                                     <img src="{{asset('assets/images/logo-light.png')}}" alt="logo-light" height="20">
@@ -58,12 +59,13 @@
 
             {{--basket --}}
             @guest
-            <div class="">
-                <a href="{{route('show.login')}}" class="btn btn-outline-success">login</a>
-                <a href="{{route('show.register')}}" class="btn btn-outline-success">Register</a>
-            </div>
+                <div class="">
+                    <a href="{{route('show.login')}}" class="btn btn-outline-success">login</a>
+                    <a href="{{route('show.register')}}" class="btn btn-outline-success">Register</a>
+                </div>
             @endguest
             @auth
+
                 <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item noti-icon waves-effect"
                             id="page-header-notifications-dropdown"
@@ -97,7 +99,7 @@
                         {{--view more--}}
                         <div class="p-2 border-top">
                             <div class="d-grid">
-                                <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
+                                <a class="btn btn-sm btn-link font-size-14 text-center" href="{{route('all.basket.user')}}">
                                     <i class="mdi mdi-arrow-right-circle me-1"></i> View More..
                                 </a>
                             </div>
@@ -110,7 +112,8 @@
                 <div class="dropdown d-inline-block user-dropdown">
                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="rounded-circle header-profile-user" src="{{asset('assets/images/users/avatar-2.jpg')}}"
+                        <img class="rounded-circle header-profile-user"
+                             src="{{asset('assets/images/users/avatar-2.jpg')}}"
                              alt="Header Avatar">
                         <span class="d-none d-xl-inline-block ms-1">Adam</span>
                         <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
@@ -118,7 +121,8 @@
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
                         <a class="dropdown-item" href="#"><i class="ri-user-line align-middle me-1"></i> Profile</a>
-                        <a class="dropdown-item" href="{{route('show.wish.user')}}"><i class="ri-wallet-2-line align-middle me-1"></i> My
+                        <a class="dropdown-item" href="{{route('show.wish.user')}}"><i
+                                class="ri-wallet-2-line align-middle me-1"></i> My
                             WishList</a>
                         <a class="dropdown-item d-block" href="#"><span
                                 class="badge bg-success float-end mt-1">11</span><i

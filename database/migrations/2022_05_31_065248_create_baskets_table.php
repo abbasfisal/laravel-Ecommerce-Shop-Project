@@ -26,6 +26,21 @@ class CreateBasketsTable extends Migration
                   ->cascadeOnUpdate()
                   ->cascadeOnDelete();
 
+            $table->foreignId('size_id')
+                ->nullable()
+                  ->references('sizes')
+                  ->cascadeOnUpdate()
+                  ->cascadeOnDelete();
+
+            $table->foreignId('color_id')
+                ->nullable()
+                  ->references('colors')
+
+                  ->cascadeOnDelete()
+                  ->cascadeOnUpdate();
+
+            $table->text('attributes')->nullable();
+
             $table->string('count');
 
             $table->timestamps();

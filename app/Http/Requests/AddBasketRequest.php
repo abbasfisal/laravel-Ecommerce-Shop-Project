@@ -15,7 +15,7 @@ class AddBasketRequest extends FormRequest
     public function authorize()
     {
 
-        return Auth::check() ?  true : abort(403);
+        return Auth::check() ? true : abort(403);
     }
 
     /**
@@ -25,9 +25,10 @@ class AddBasketRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
-            'product_id'=>'required|exists:products,id'
+            'product_id' => 'required|exists:products,id',
+            'size'       => 'nullable|exists:sizes,id',
+            'color'      => 'nullable|exists:colors,id'
         ];
     }
 }

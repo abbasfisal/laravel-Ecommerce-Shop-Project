@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\User\Services\BasketService;
 use App\Http\Controllers\User\Services\WishListService;
 use App\Http\Requests\AddBasketRequest;
+use App\Models\Basket;
 use App\Models\Product;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
@@ -60,24 +61,43 @@ class UserController extends Controller
      */
     public function addBasket(AddBasketRequest $request)
     {
-        $result = BasketService::add(Auth::id(), $request->product_id);
 
-        return response()->json([$result]);
+        $result = BasketService::add(Auth::id(), $request);
+
+
+        if ($result === 'updated') {
+
+            return redirect()
+                ->back()
+                ->with('succ', config('shop.msg.increase_count'));
+        } else {
+
+            return redirect()
+                ->back()
+                ->with('succ', config('shop.msg.add_basket'));
+        }
     }
+
 
     /**
      * Decrease count of basket count field one by one
      *
-     * @param AddBasketRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param Product $product
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function decCount(AddBasketRequest $request)
+    public function decCount(Basket $basket)
     {
-        $result = BasketService::decrease(Auth::id(), $request->product_id);
-        if ($result)
-            return response()->json([$result]);
 
-        return response()->json(['error' => ':)']);
+        $result = BasketService::decrease(Auth::id(), $basket->id);
+
+        if ($result)
+            return redirect()
+                ->back()
+                ->with('msg', config('shop.msg.dec_count_succ'));
+
+        return redirect()
+            ->back()
+            ->with('msg', config('shop.msg.dec_count_fail'));
     }
 
 
@@ -85,14 +105,30 @@ class UserController extends Controller
      * Delete a user basket
      * @param AddBasketRequest $request
      */
-    public function delBasket(AddBasketRequest $request)
+    public function delBasket(Basket $basket)
     {
-        $result = BasketService::delete(Auth::id(), $request->product_id);
 
-        if ($result) {
-            return response()->json(['delete', true]);
-        }
+        $result = BasketService::delete(Auth::id(), $basket->id);
 
-        return response()->json(['delete', false]);
+        if ($result)
+            return redirect()
+                ->back()
+                ->with('msg', config('shop.msg.delete'));
+
+        return redirect()
+            ->back()
+            ->with('msg', config('shop.msg.delete_fail'));
+    }
+
+    /**
+     * show logedIn user all bakset
+     *
+     */
+    public function showAllBasket()
+    {
+        $baskets = Auth::user()
+                       ->baskets()
+                       ->get();
+        return view('user.basket', compact('baskets'));
     }
 }
