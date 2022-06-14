@@ -42,19 +42,21 @@ return [
      |
      */
     'msg'               => [
-        'create'             => 'successfully created',
+        'create' => 'successfully created',
 
-        'delete'             => 'successfully Delete',
-        'delete_fail'        => 'Fail While Deleting',
+        'delete'      => 'successfully Delete',
+        'delete_fail' => 'Fail While Deleting',
 
-        'fail'               => 'UserName | Password is Invalid',
+        'fail' => 'UserName | Password is Invalid',
 
         'add_wishlist'       => 'product successfully added to your wishlist ',
         'was_exist_wishlist' => 'product was exist in your wishlist',
 
         'add_basket' => 'Product Successfully Added To Your Basket',
 
-        'increase_count' => 'Product Successfully Increased +1',
+        'increase_count'      => 'Product Successfully Increased +1',
+        'increase_count_fail' => 'Increase Was Fail / try Againg',
+
         'dec_count_succ' => 'Product Successfully Decreased -1',
         'dec_count_fail' => 'Product Failed Decreased -1'
 

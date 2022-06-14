@@ -33,17 +33,17 @@
                                  src="{{asset(config('shop.productCoverPath').$basket->product->image)}}" alt="">
                         </td>
                         <td>
-                            <form action="{{route('dec.basket.user',$basket->id)}}" method="get">
 
-                                <button type="submit" class="btn  btn-sm  btn-outline-danger">
+
+                                <a href="{{route('dec.basket.user',$basket->id)}}" type="submit" class="btn  btn-sm  btn-outline-danger">
                                     <i class="fas fa-minus"></i>
-                                </button>
+                                </a>
                                 {{$basket->count}}
-                                <button class="btn btn-sm btn-outline-success">
+                                <a href="{{route('increase.basket.user' , $basket->id)}}" class="btn btn-sm btn-outline-success">
                                     <i class="fas fa-plus"></i>
-                                </button>
+                                </a>
 
-                            </form>
+
 
                         </td>
                         <td>

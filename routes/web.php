@@ -80,6 +80,9 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
          ->name('add.basket.user')
          ;
 
+    Route::get('/basket/incr/{basket}' , [UserController::class , 'IncreaseCount'])
+        ->name('increase.basket.user');
+
     //decrease proudct in basket count field
     Route::get("/basket/dec/{basket}", [UserController::class, 'decCount'])
          ->name('dec.basket.user');
@@ -90,6 +93,7 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
          ->name('del.basket.user');
 
 
+    //show all basket
     Route::get('/basket/show/all', [UserController::class, 'showAllBasket'])
          ->name('all.basket.user');
 

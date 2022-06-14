@@ -81,7 +81,7 @@ class BasketService extends Controller
 
             $basket->update(['count' => $count]);
 
-            return $count > 1 ? true : false;
+            return true;
         }
         return false;
 
@@ -105,5 +105,16 @@ class BasketService extends Controller
             return true;
         }
         return false;
+    }
+
+
+    public static function IncreaseCount(Basket $basket)
+    {
+
+        $basket->update([
+            'count' => (int)$basket->count + 1
+        ]);
+
+        return true;
     }
 }

@@ -131,4 +131,20 @@ class UserController extends Controller
                        ->get();
         return view('user.basket', compact('baskets'));
     }
+
+    /**
+     * Increase coloumn Count
+     */
+    public function IncreaseCount(Basket $basket)
+    {
+        $result  = BasketService::IncreaseCount($basket);
+
+        if($result){
+            return redirect()->back()->with('msg' , config('shop.msg.increase_count'));
+        }
+
+        return redirect()->back()->with('msg' , config('increase_count_fail'));
+
+
+    }
 }
