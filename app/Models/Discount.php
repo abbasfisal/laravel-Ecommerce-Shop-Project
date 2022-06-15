@@ -18,4 +18,16 @@ class Discount extends Model
         'started_at',
         'end_at'
     ];
+
+
+    /*
+     |------------------------------
+     | Relations
+     |------------------------------
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::clas);
+    }
+
 }

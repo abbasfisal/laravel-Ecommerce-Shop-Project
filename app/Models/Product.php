@@ -99,4 +99,9 @@ class Product extends Model
     {
         return $this->hasMany(Basket::class);
     }
+
+    public function order_items()
+    {
+        return $this->hasMany(OrderItem::clas);
+    }
 }

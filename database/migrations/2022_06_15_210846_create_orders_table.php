@@ -24,7 +24,7 @@ class CreateOrdersTable extends Migration
                   ->constrained('states')
                   ->cascadeOnUpdate();
 
-            $table->foreignId('discount')
+            $table->foreignId('discount_id')
                   ->nullable()
                   ->constrained('discounts')
                   ->cascadeOnUpdate();
