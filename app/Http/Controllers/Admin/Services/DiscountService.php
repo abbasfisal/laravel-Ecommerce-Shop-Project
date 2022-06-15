@@ -38,4 +38,14 @@ class DiscountService extends Controller
     {
         return Discount::paginate($perPage ?? config('shop.perPage'));
     }
+
+    /**
+     * find coupon by title
+     * @param $code
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
+     */
+    public static function findByTitle($title)
+    {
+        return Discount::query()->where('title',$title)->first();
+    }
 }

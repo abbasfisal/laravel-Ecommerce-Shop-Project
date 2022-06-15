@@ -95,7 +95,7 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
 
 
     //show all basket
-    Route::get('/basket/show/all', [UserController::class, 'showAllBasket'])
+    Route::match(['get','post'],'/basket/show/all', [UserController::class, 'showAllBasket'])
          ->name('all.basket.user');
 
 

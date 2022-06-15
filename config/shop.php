@@ -58,7 +58,9 @@ return [
         'increase_count_fail' => 'Increase Was Fail / try Againg',
 
         'dec_count_succ' => 'Product Successfully Decreased -1',
-        'dec_count_fail' => 'Product Failed Decreased -1'
+        'dec_count_fail' => 'Product Failed Decreased -1',
+
+        'coupon_expired' => 'The Coupon Code Is Not Valid!'
 
     ]
 ];

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Admin\Services\DiscountService;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\User\Services\BasketService;
 use App\Http\Controllers\User\Services\WishListService;
 use App\Http\Requests\AddBasketRequest;
+use App\Http\Requests\DiscountRequest;
 use App\Models\Basket;
 use App\Models\Product;
 use App\Models\Wishlist;
@@ -124,11 +126,30 @@ class UserController extends Controller
      * show logedIn user all bakset
      *
      */
-    public function showAllBasket()
+    public function showAllBasket(DiscountRequest $request)
     {
         $baskets = Auth::user()
                        ->baskets()
                        ->get();
+
+       
+
+        if ($request->isMethod('post')) {
+
+            $discount = DiscountService::findByTitle($request->title);
+
+            if ($this->isValidCoupon($discount)) {
+
+                $coupon = $discount->toArray();
+                return view('user.basket', compact('baskets', 'coupon'));
+
+            } else {
+                $coupon_valid = config('shop.msg.coupon_expired');
+                return view('user.basket', compact('baskets','coupon_valid'));
+            }
+        }
+
+
         return view('user.basket', compact('baskets'));
     }
 
@@ -137,14 +158,28 @@ class UserController extends Controller
      */
     public function IncreaseCount(Basket $basket)
     {
-        $result  = BasketService::IncreaseCount($basket);
+        $result = BasketService::IncreaseCount($basket);
 
-        if($result){
-            return redirect()->back()->with('msg' , config('shop.msg.increase_count'));
+        if ($result) {
+            return redirect()
+                ->back()
+                ->with('msg', config('shop.msg.increase_count'));
         }
 
-        return redirect()->back()->with('msg' , config('increase_count_fail'));
+        return redirect()
+            ->back()
+            ->with('msg', config('increase_count_fail'));
 
 
+    }
+
+    /**
+     * Coupon must be valid from (start date , end date )
+     * @param $discount
+     * @return bool
+     */
+    private function isValidCoupon($discount): bool
+    {
+        return !empty($discount) && now()->isBetween($discount->started_at, $discount->end_at);
     }
 }
