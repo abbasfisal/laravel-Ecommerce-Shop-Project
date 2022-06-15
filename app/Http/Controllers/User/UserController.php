@@ -132,7 +132,7 @@ class UserController extends Controller
                        ->baskets()
                        ->get();
 
-       
+
 
         if ($request->isMethod('post')) {
 
