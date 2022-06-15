@@ -128,11 +128,11 @@
             <br>
             <hr>
             <div class="rounded-3 bg-white border col-lg-6 m-auto shadow">
-                @php($total=null)
+                @php($total=null )
+                @php( $total_without_on_sale =null )
                 @foreach($baskets as $basket)
 
                     @if($basket->product->on_sale !=null)
-
 
                         @if(\Illuminate\Support\Carbon::now()->isBetween($basket->product->started_at ,  $basket->product->end_at))
 
@@ -142,13 +142,29 @@
                     @else
 
                         @php($total += (int)$basket->count *(int) $basket->product->price )
+                        @php($total_without_on_sale +=(int)$basket->count *(int) $basket->product->price)
                     @endif
 
 
                 @endforeach
+                <form action="#">
+                    <div class="row">
+
+                        <div class="col-lg-4">
+                            <Button class="btn form-control btn-outline-info">Apply</Button>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="text" name="cupon" placeholder="Enter Coupon Code" class="form-control">
+                        </div>
+                    </div>
+                </form>
+                <br>
                 <h3 class="text-info text-center">
                     <b>order Total:</b>
                     {{$total}} $</h3>
+                <h4>{{($total_without_on_sale)}}</h4>
+
+
             </div>
         </div>
 

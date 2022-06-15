@@ -80,6 +80,7 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
          ->name('add.basket.user')
          ;
 
+    //increase count step +1
     Route::get('/basket/incr/{basket}' , [UserController::class , 'IncreaseCount'])
         ->name('increase.basket.user');
 
