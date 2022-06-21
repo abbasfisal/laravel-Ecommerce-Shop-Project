@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Services;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Services\uploadService;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use App\Models\ProductGalleries;
@@ -137,6 +138,18 @@ class ProductService extends Controller
         return Product::query()
                       ->paginate($perPage ?? config('shop.perPage'));
 
+    }
+
+    /**
+     * if paid was successfull
+     * then decrease stock count
+     * @param OrderItem $item
+     */
+    public static function DecreaseStockCount(OrderItem $item)
+    {
+        Product::query()
+               ->where('id', $item->product->id)
+               ->update(['stock' => $item->product->stock - $item->count >= 0 ? $item->product->stock - $item->count : 0]);
     }
 
 

@@ -9,13 +9,14 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-json": "*",
+        "evryn/laravel-toman": "^2.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "tinymce/tinymce": "^6.0",
-      "ext-json": "*"
+        "tinymce/tinymce": "^6.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

@@ -44,4 +44,10 @@ class OrderItem extends Model
     {
         return $this->belongsTo(Size::class);
     }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Order;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -35,10 +36,11 @@ class CreateOrdersTable extends Migration
 
             $table->string('phone', 11);
 
-            $table->enum('status', ['new', 'paid', 'canceled', 'fail'])
-                  ->default('new');
+            $table->enum('status', Order::status)
+                  ->default(Order::status_new);
 
             $table->string('total')
+                ->nullable()
                   ->comment('total price without calculate the Discount ');
 
             $table->string('discount_total')

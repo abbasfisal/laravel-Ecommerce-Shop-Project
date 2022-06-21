@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\UserController;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 
@@ -64,8 +65,7 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
 
 
     Route::get('/add/wishlist/{product}', [UserController::class, 'addWishList'])
-         ->name('add.wish.user')
-         ;
+         ->name('add.wish.user');
 
     Route::get('/wishlist', [UserController::class, 'getUserWishList'])
          ->name('show.wish.user');
@@ -77,12 +77,11 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
 
     //add new product to basket , increase count
     Route::post("/basket/add", [UserController::class, 'addBasket'])
-         ->name('add.basket.user')
-         ;
+         ->name('add.basket.user');
 
     //increase count step +1
-    Route::get('/basket/incr/{basket}' , [UserController::class , 'IncreaseCount'])
-        ->name('increase.basket.user');
+    Route::get('/basket/incr/{basket}', [UserController::class, 'IncreaseCount'])
+         ->name('increase.basket.user');
 
     //decrease proudct in basket count field
     Route::get("/basket/dec/{basket}", [UserController::class, 'decCount'])
@@ -95,10 +94,23 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
 
 
     //show all basket
-    Route::match(['get','post'],'/basket/show/all', [UserController::class, 'showAllBasket'])
+    Route::match(['get', 'post'], '/basket/show/all', [UserController::class, 'showAllBasket'])
          ->name('all.basket.user');
 
+    //show address
+    Route::match(['get', 'post'], '/basket/show/address', [UserController::class, 'showAddress'])
+         ->name('address.basket.user');
 
+    Route::post('/basket/add/address', [UserController::class, 'AddAddress'])
+         ->name('address.add.user');
+
+    Route::post('/basket/get/state', [UserController::class, 'GetStateByCityId'])
+         ->name('state.basket.user');
+
+    //pay
+    Route::get('/basket/pay/{order}', [UserController::class, 'Pay'])
+         ->name('pay.user');
+    /*->can('view', 'order');*/
 });
 
 

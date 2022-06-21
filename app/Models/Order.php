@@ -11,6 +11,18 @@ class Order extends Model
 
     protected $table = 'orders';
 
+    const status_new = 'new';
+    const status_paid = 'paid';
+    const status_canceled = 'canceled';
+    const status_fail = 'fail';
+
+    const status = [
+        self::status_new,
+        self::status_paid,
+        self::status_canceled,
+        self::status_fail
+    ];
+
     protected $fillable = [
         'user_id',
         'state_id',
@@ -45,5 +57,10 @@ class Order extends Model
     public function discount()
     {
         return $this->belongsTo(Discount::class);
+    }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
     }
 }

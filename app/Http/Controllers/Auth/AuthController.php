@@ -91,6 +91,8 @@ class AuthController extends Controller
         $user = AuthService::getUserWhere($request);
 
 
+        if ($user === false)
+            return redirect('login')->with('fail', config('shop.msg.fail'));
 
         //admin login
         if ($user->type == User::admin_type) {
@@ -106,8 +108,6 @@ class AuthController extends Controller
 
 
 
-        if ($user === false)
-            return redirect('login')->with('fail', config('shop.msg.fail'));
 
 
     }

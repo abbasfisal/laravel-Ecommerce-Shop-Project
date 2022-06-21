@@ -2,19 +2,34 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Admin\Services\CityService;
 use App\Http\Controllers\Admin\Services\DiscountService;
+use App\Http\Controllers\Admin\Services\ProductService;
+use App\Http\Controllers\Admin\Services\StateService;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\User\Services\BasketService;
+use App\Http\Controllers\User\Services\OrderServices;
 use App\Http\Controllers\User\Services\WishListService;
 use App\Http\Requests\AddBasketRequest;
+use App\Http\Requests\CheckCouponRequest;
 use App\Http\Requests\DiscountRequest;
+use App\Http\Requests\GetStateByCityIDRequest;
+use App\Http\Requests\StoreUserOrderAddressRequest;
+use App\Http\Requests\UserOrderPayRequest;
 use App\Models\Basket;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Wishlist;
+use Evryn\LaravelToman\Facades\Toman;
+use Evryn\LaravelToman\FakeRequest;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+
+
     /**
      * Store new WishList for logedIn User if Product Not Exist in wishlist table
      *
@@ -133,7 +148,6 @@ class UserController extends Controller
                        ->get();
 
 
-
         if ($request->isMethod('post')) {
 
             $discount = DiscountService::findByTitle($request->title);
@@ -145,7 +159,7 @@ class UserController extends Controller
 
             } else {
                 $coupon_valid = config('shop.msg.coupon_expired');
-                return view('user.basket', compact('baskets','coupon_valid'));
+                return view('user.basket', compact('baskets', 'coupon_valid'));
             }
         }
 
@@ -181,5 +195,144 @@ class UserController extends Controller
     private function isValidCoupon($discount): bool
     {
         return !empty($discount) && now()->isBetween($discount->started_at, $discount->end_at);
+    }
+
+    /**
+     * Show Add Address View
+     * @param CheckCouponRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function showAddress(CheckCouponRequest $request)
+    {
+        $cities = CityService::getAll();
+
+        if (isset($request->code)) {
+            //coupon code(title)
+            $code = $request->code;
+            return view('user.address', compact('code', 'cities'));
+        }
+
+        return view('user.address', compact('cities'));
+
+    }
+
+    /**
+     * Store user Address
+     */
+    public function AddAddress(StoreUserOrderAddressRequest $request)
+    {
+
+        $order = OrderServices::StoreAddress(Auth::id(), $request);
+        //return $order;
+        return view('user.orderfactor', compact('order'));
+
+
+    }
+
+
+    public function GetStateByCityId(GetStateByCityIDRequest $request)
+    {
+        if ($request->wantsJson()) {
+            $states = StateService::getJsonStates($request->city_id);
+            return response()->json($states);
+        }
+    }
+
+    public function Pay($order)
+    {
+
+        $order = OrderServices::getOrder($order, Auth::id());
+
+        if (empty($order)) {
+            return abort(404);
+        }
+
+        self::CheckInventry($order);
+
+        if ($order->discount_total) {
+
+            //discount must pay
+            $pay_request = Toman::fakeRequest()
+                                ->successful()
+                                ->withTransactionId(Str::random(4) . rand(1111, 9999));
+
+        }else{
+            //total must pay
+            $pay_request = Toman::fakeRequest()
+                                ->successful()
+                                ->withTransactionId(Str::random(4) . rand(1111, 9999));
+
+        }
+
+
+        if ($pay_request->successful()) {
+
+
+            OrderServices::SuccessfullPaid($order , $pay_request);
+
+            self::ReduceInventry($order);
+
+            return view('user.order_result', compact('order'));
+        }
+
+        if($pay_request->failed()){
+            $order->update([
+                'status'=> Order::status_fail,
+            ]);
+        }
+
+    }
+
+    /*
+     |------------------------------
+     | private methods
+     |------------------------------
+     |
+     |
+     |
+     */
+
+
+    /**
+     * Before Pay
+     * Check the Stock of product ,
+     * if not available then return product which is not availble
+     * @param $order
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public static function CheckInventry($order)
+    {
+        $stock_unavailable = null;
+
+        //check stock invetnry
+        foreach ($order->orderItems as $item) {
+
+            if ($item->product->stock < $item['count']) {
+
+                $stock_unavailable[] = [
+                    'title' => $item->product->title,
+                    'image' => $item->product->image,
+                    'stock' => $item->product->stock
+                ];
+            }
+        }
+
+
+        if (!empty($stock_unavailable))
+            return view('user.unavailablestuck', compact('stock_unavailable'));
+
+    }
+
+    /**
+     * if paid was successfull , then reduce the stock count inventry
+     * @param Model $order
+     */
+    private static function ReduceInventry(Model $order)
+    {
+        foreach ($order->orderItems as $item) {
+            ProductService::DecreaseStockCount($item);
+
+        }
+
     }
 }

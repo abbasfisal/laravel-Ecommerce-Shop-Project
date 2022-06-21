@@ -25,19 +25,17 @@
                 </thead>
 
                 <tbody>
+
                 @foreach($baskets as $key=>$basket)
 
                     <tr>
-
                         <td><strong>{{$key+1}}</strong></td>
-
                         <td>{{$basket->product->title}}</td>
                         <td>
                             @if(!is_null($basket->color_id))
                                 <div class="rounded-3"
                                      style="width: 20px ; height: 20px; background-color:{{$basket->color->code}} "></div>
                             @endif
-
                         </td>
                         <td>
                             @if(!is_null($basket->size_id))
@@ -127,90 +125,96 @@
 
             <br>
             <hr>
-            <div class="rounded-3 bg-white border col-lg-6 m-auto shadow">
-                @php($total=null )
-                @php( $total_without_on_sale =null )
-                @php($total_with_on_sale = null);
-                @foreach($baskets as $basket)
+            {{--price details--}}
+            @if($baskets->count())
+                <div class="rounded-3 bg-white border col-lg-6 m-auto shadow">
+                    @php($total=null )
+                    @php( $total_without_on_sale =null )
+                    @php($total_with_on_sale = null);
+                    @foreach($baskets as $basket)
 
-                    @if($basket->product->on_sale !=null)
+                        @if($basket->product->on_sale !=null)
 
-                        @if(\Illuminate\Support\Carbon::now()->isBetween($basket->product->started_at ,  $basket->product->end_at))
+                            @if(\Illuminate\Support\Carbon::now()->isBetween($basket->product->started_at ,  $basket->product->end_at))
 
-                            @php( $total += (int)$basket->count * (int)$basket->product->on_sale )
-                            @php( $total_with_on_sale += (int)$basket->count * (int)$basket->product->on_sale )
+                                @php( $total += (int)$basket->count * (int)$basket->product->on_sale )
+                                @php( $total_with_on_sale += (int)$basket->count * (int)$basket->product->on_sale )
+                            @endif
+
+                        @else
+
+                            @php($total += (int)$basket->count *(int) $basket->product->price )
+                            @php($total_without_on_sale +=(int)$basket->count *(int) $basket->product->price)
                         @endif
 
-                    @else
 
-                        @php($total += (int)$basket->count *(int) $basket->product->price )
-                        @php($total_without_on_sale +=(int)$basket->count *(int) $basket->product->price)
-                    @endif
+                    @endforeach
 
+                    {{--form apply copun / next stem--}}
+                    <form action="{{route('all.basket.user')}}" method="post">
+                        @csrf
+                        @method('post')
+                        <div class="row">
 
-                @endforeach
-                <form action="{{route('all.basket.user')}}" method="post">
-                    @csrf
-                    @method('post')
-                    <div class="row">
-
-                        <div class="col-lg-4">
-                            <Button class="btn form-control btn-outline-info">Apply</Button>
+                            <div class="col-lg-4">
+                                <Button class="btn form-control btn-outline-info">Apply</Button>
+                            </div>
+                            <div class="col-lg-8">
+                                <input type="text" name="title" placeholder="Enter Coupon Code" class="form-control">
+                            </div>
                         </div>
-                        <div class="col-lg-8">
-                            <input type="text" name="title" placeholder="Enter Coupon Code" class="form-control">
-                        </div>
-                    </div>
-                    @error('title')
-                    <div class="alert alert-danger">
-                        {{$message}}
-                    </div>
-                    @enderror
-
-
-                    {{--coupon is not valid ( may be expired or sooner used )--}}
-                    @isset($coupon_valid)
+                        @error('title')
                         <div class="alert alert-danger">
-                            {{$coupon_valid}}
+                            {{$message}}
                         </div>
-                    @endif
-
-                </form>
-                <br>
-                <h3 class="text-info text-center">
-                    <b>order Total:</b>
-                    {{$total}} $</h3>
-
-                @isset($coupon)
-                    <table class="table table-hover">
-                        <tr>
-                            <td><strong>Discount Code :</strong></td>
-                            <td>{{$coupon['title']}}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Discount Percent :</strong></td>
-                            <td>{{$coupon['percent']}} <span class="badge badge-soft-info">%</span></td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>Total Order without Calculate Coupon :</strong></td>
-                            <td>@money($total)</td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>Total Order with Calculate Coupon :</strong></td>
-                            <td>@money(DISCOUNT($total_without_on_sale , $coupon['percent']) + $total_with_on_sale)</td>
-                        </tr>
+                        @enderror
 
 
+                        {{--coupon is not valid ( may be expired or sooner used )--}}
+                        @isset($coupon_valid)
+                            <div class="alert alert-danger">
+                                {{$coupon_valid}}
+                            </div>
+                        @endif
 
-                    </table>
+                    </form>
+                    <br>
+                    <h3 class="text-info text-center">
+                        <b>order Total:</b>
+                        @money($total) </h3>
 
+                    @isset($coupon)
+                        <table class="table table-hover">
+                            <tr>
+                                <td><strong>Discount Code :</strong></td>
+                                <td>{{$coupon['title']}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Discount Percent :</strong></td>
+                                <td>{{$coupon['percent']}} <span class="badge badge-soft-info">%</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total Order without Calculate Coupon :</strong></td>
+                                <td>@money($total)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total Order with Calculate Coupon :</strong></td>
+                                <td>@money(DISCOUNT($total_without_on_sale , $coupon['percent']) +
+                                    $total_with_on_sale)
+                                </td>
+                            </tr>
+                        </table>
+                    @endisset
+                    <br>
+                    <form action="{{route('address.basket.user')}}" method="get">
 
-
-                @endisset
-
-            </div>
+                        @isset($coupon)
+                            <input type="hidden" name="code" value="{{$coupon['title']}}">
+                        @endisset
+                        <button class="btn btn-info form-control">Next Step</button>
+                    </form>
+                </div>
+            @endif
         </div>
 
 

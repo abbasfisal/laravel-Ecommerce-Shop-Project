@@ -117,4 +117,27 @@ class BasketService extends Controller
 
         return true;
     }
+
+    /**
+     * get user basket
+     * @param int $AuthId
+     */
+    public static function getByUserId(int $AuthId)
+    {
+        return Basket::query()
+                     ->where('user_id', $AuthId)
+                     ->get()
+                     ->toArray();
+    }
+
+    /**
+     * Delete all  baskets which belong to given User Id
+     *
+     * @param int|null $id
+     */
+    public static function DeleteAllUserBasket(int $AuthId)
+    {
+        return Basket::query()
+                     ->where('user_id' , $AuthId)->delete();
+    }
 }

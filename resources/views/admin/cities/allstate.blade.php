@@ -32,7 +32,8 @@
                 </thead>
                 <tbody>
 
-                     @foreach( $states as $key =>$state)
+                     @foreach( $cities->states as $key =>$state)
+
                          <tr data-id="5" style="cursor: pointer;">
                              <td data-field="id">{{$loop->iteration}}</td>
                              <td data-field="title">{{$state->name}}</td>
