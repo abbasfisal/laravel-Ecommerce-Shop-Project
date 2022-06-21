@@ -114,8 +114,15 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
 });
 
 
-//--------------------------------
-Route::group(['prefix' => 'dashboard'], function () {
+/*
+ |------------------------------
+ | Admin Routes
+ |------------------------------
+ |
+ |
+ |
+ */
+Route::group(['prefix' => 'dashboard' , 'middleware'=>'adminauth'], function () {
     Route::view('/', 'admin.layouts.app')
          ->name('index.admin');
 
@@ -242,6 +249,14 @@ Route::group(['prefix' => 'dashboard'], function () {
          ->name('subcategory.product');
 });
 
+/*
+ |------------------------------
+ | home route
+ |------------------------------
+ |
+ |
+ |
+ */
 //index shop
 Route::get('/', [HomeController::class, 'index'])
      ->name('index');

@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AdminAuth;
 use App\Http\Middleware\MyAuth;
 use App\Http\Middleware\UserAuth;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -69,6 +70,7 @@ class Kernel extends HttpKernel
 
 
         /*my*/
-        'userauth'         => UserAuth::class
+        'userauth'         => UserAuth::class,
+        'adminauth'        => AdminAuth::class //check if user type  = admin
     ];
 }
