@@ -37,4 +37,20 @@ class ColorService extends Controller
     {
         return Color::get();
     }
+
+    /**
+     * update color by id
+     * @param $id
+     * @param $name
+     * @param $code
+     */
+    public static function update($id, $name, $code)
+    {
+        $color = Color::query()
+                      ->find($id);
+        return $color->update([
+            'name' => $name,
+            'code' => $code
+        ]);
+    }
 }

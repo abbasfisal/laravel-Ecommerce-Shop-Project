@@ -25,7 +25,7 @@
                             </td>
                             <td class="text-center">
                                 <a
-                                    href="#{{$color->id}}"
+                                    href="{{route('show.edit.color' , $color->id)}}"
                                     class="btn btn-outline-warning btn-sm edit" title="Edit">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>

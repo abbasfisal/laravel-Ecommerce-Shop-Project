@@ -192,6 +192,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'adminauth'], fun
     Route::post('/color', [ColorController::class, 'store'])
          ->name('store.color');
 
+
+    //show eidt form
+    Route::get('/color/edit/{color}'  , [ColorController::class , 'ShowEdit'])
+        ->name('show.edit.color');
+
+    Route::post('/color/update' , [ColorController::class , 'Update'])
+        ->name('update.color');
+
     /*
      |------------------------------
      | Size
