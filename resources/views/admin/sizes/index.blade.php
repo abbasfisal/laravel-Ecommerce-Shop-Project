@@ -20,7 +20,7 @@
                             <td data-field="title">{{$size->title}}</td>
                             <td class="text-center">
                                 <a
-                                    href="#{{$size->id}}"
+                                    href="{{route('show.edit.size' , $size->id)}}"
                                     class="btn btn-outline-warning btn-sm edit" title="Edit">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>

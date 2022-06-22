@@ -47,7 +47,8 @@ return [
         'delete'      => 'successfully Delete',
         'delete_fail' => 'Fail While Deleting',
 
-        'fail' => 'UserName | Password is Invalid',
+        'fail_update' => 'Faile While Updating',
+        'fail'        => 'UserName | Password is Invalid',
 
         'add_wishlist'       => 'product successfully added to your wishlist ',
         'was_exist_wishlist' => 'product was exist in your wishlist',
@@ -66,7 +67,7 @@ return [
 
         'fail_update_order_status' => 'Fail while Updating Order Status / try a again ...',
 
-        'empty_search' =>'The Order Search Result Was Empty',
+        'empty_search' => 'The Order Search Result Was Empty',
 
     ]
 ];

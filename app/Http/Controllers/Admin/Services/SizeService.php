@@ -37,4 +37,18 @@ class SizeService extends Controller
         return Size::get();
     }
 
+    /**
+     * update size
+     * @param $id
+     * @param $title
+     */
+    public static function update($id, $title)
+    {
+        $size  = Size::query()->find($id);
+        return $size->update([
+            'title' =>$title
+        ]);
+
+    }
+
 }
