@@ -12,7 +12,6 @@ use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\UserController;
-use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 
@@ -123,7 +122,7 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
  |
  |
  */
-Route::group(['prefix' => 'dashboard' , 'middleware'=>'auth','adminauth'], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'adminauth'], function () {
     Route::view('/', 'admin.layouts.app')
          ->name('index.admin');
 
@@ -133,16 +132,25 @@ Route::group(['prefix' => 'dashboard' , 'middleware'=>'auth','adminauth'], funct
      |------------------------------
      |
      */
-    Route::get('/orders/all' , [OrderController::class, 'index'])
-        ->name('index.order');
+    //all order
+    Route::get('/orders/all', [OrderController::class, 'index'])
+         ->name('index.order');
 
-    Route::get('/orders/single/{order}' , [OrderController::class , 'SingleOrder'])
-        ->name('single.order');
+    //show single order
+    Route::get('/orders/single/{order}', [OrderController::class, 'SingleOrder'])
+         ->name('single.order');
 
-    Route::post('/order/change/status' , [OrderController::class , 'ChangeStatus'])
-        ->name('change.status.order');
+    //change order status
+    Route::post('/order/change/status', [OrderController::class, 'ChangeStatus'])
+         ->name('change.status.order');
 
+    //show search Form
+    Route::get('/order/search', [OrderController::class, 'ShowSearch'])
+         ->name('show.search.order');
 
+    //search
+    Route::post('/order/search', [OrderController::class, 'Search'])
+         ->name('search.order');
     /*
      |------------------------------
      | category

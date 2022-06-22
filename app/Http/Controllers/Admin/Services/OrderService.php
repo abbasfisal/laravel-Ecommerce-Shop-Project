@@ -29,9 +29,22 @@ class OrderService extends Controller
 
     public static function ChangeStatus($order, $status)
     {
-        $order  = Order::query()->find($order);
-        return  $order->update([
+        $order = Order::query()
+                      ->find($order);
+        return $order->update([
             'status' => $status
         ]);
+    }
+
+    /**
+     * Search Order columns payment_code | Tracking Code
+     *
+     * @param $code
+     */
+    public static function Search($code)
+    {
+        return Order::query()
+                    ->where('tracking_code', $code)
+                    ->orWhere('payment_code', $code)->first();
     }
 }

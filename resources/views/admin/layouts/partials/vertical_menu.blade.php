@@ -41,7 +41,9 @@
                         <li>
                             <a href="{{route('index.order')}}" class="">All Orders</a>
                         </li>
-
+                        <li>
+                            <a href="{{route('show.search.order')}}" class="">Search </a>
+                        </li>
 
                     </ul>
                 </li>
