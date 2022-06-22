@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\StateController;
@@ -122,9 +123,25 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
  |
  |
  */
-Route::group(['prefix' => 'dashboard' , 'middleware'=>'adminauth'], function () {
+Route::group(['prefix' => 'dashboard' , 'middleware'=>'auth','adminauth'], function () {
     Route::view('/', 'admin.layouts.app')
          ->name('index.admin');
+
+    /*
+     |------------------------------
+     | Orders
+     |------------------------------
+     |
+     */
+    Route::get('/orders/all' , [OrderController::class, 'index'])
+        ->name('index.order');
+
+    Route::get('/orders/single/{order}' , [OrderController::class , 'SingleOrder'])
+        ->name('single.order');
+
+    Route::post('/order/change/status' , [OrderController::class , 'ChangeStatus'])
+        ->name('change.status.order');
+
 
     /*
      |------------------------------

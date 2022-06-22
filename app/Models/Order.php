@@ -15,12 +15,17 @@ class Order extends Model
     const status_paid = 'paid';
     const status_canceled = 'canceled';
     const status_fail = 'fail';
+    const status_pending = 'pending';
+    const status_delivered = 'delivered';
+
 
     const status = [
         self::status_new,
         self::status_paid,
         self::status_canceled,
-        self::status_fail
+        self::status_fail,
+        self::status_pending,
+        self::status_delivered
     ];
 
     protected $fillable = [
@@ -37,6 +42,22 @@ class Order extends Model
         'payment_code',
         'paied_date'
     ];
+
+
+    public static function getOrderStatus()
+    {
+        return [
+            self::status_pending,
+            self::status_delivered,
+            self::status_canceled
+        ];
+    }
+
+    public static function IsStatusExist($status)
+    {
+        return in_array($status, self::getOrderStatus());
+
+    }
 
     /*
      |------------------------------

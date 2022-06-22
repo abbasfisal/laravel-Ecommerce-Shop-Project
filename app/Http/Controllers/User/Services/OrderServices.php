@@ -197,7 +197,7 @@ class OrderServices extends Controller
     {
         $order->update([
             'tracking_code' => Str::random(3) . rand(1111, 9999),
-            /*'status'=> Order::status_paid,*/
+            'status'=> Order::status_paid,
             'payment_code'  => $pay_request->getTransactionId(),
             'paied_date'    => now()->format('Y-m-d H:m:s')
         ]);

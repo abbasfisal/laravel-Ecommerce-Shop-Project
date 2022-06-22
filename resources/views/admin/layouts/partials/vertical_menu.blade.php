@@ -31,6 +31,21 @@
                         <span>Chat</span>
                     </a>
                 </li>
+                {{--orders--}}
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-layout-3-line"></i>
+                        <span>Orders </span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="true">
+                        <li>
+                            <a href="{{route('index.order')}}" class="">All Orders</a>
+                        </li>
+
+
+                    </ul>
+                </li>
+
                 {{--Category--}}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">

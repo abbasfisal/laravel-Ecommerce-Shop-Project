@@ -42,8 +42,8 @@ return [
      |
      */
     'msg'               => [
-        'create' => 'successfully created',
-
+        'create'      => 'successfully created',
+        'update'      => 'successfully updated',
         'delete'      => 'successfully Delete',
         'delete_fail' => 'Fail While Deleting',
 
@@ -60,7 +60,11 @@ return [
         'dec_count_succ' => 'Product Successfully Decreased -1',
         'dec_count_fail' => 'Product Failed Decreased -1',
 
-        'coupon_expired' => 'The Coupon Code Is Not Valid!'
+        'coupon_expired' => 'The Coupon Code Is Not Valid!',
+
+        'fail_status_order' => 'somthing goes wrong!',
+
+        'fail_update_order_status' => 'Fail while Updating Order Status / try a again ...'
 
     ]
 ];
