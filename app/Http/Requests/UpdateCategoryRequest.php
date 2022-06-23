@@ -26,9 +26,10 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>'required|string|min:3',
-            'slug'=>'required|string|min:3',
-            'category'=>['nullable' ,  new CategoryExistenceRule()],
+            'id'       => 'required|exists:categories,id',
+            'title'    => 'required|string|min:3',
+            'slug'     => 'required|string|min:3',
+            'category' => ['nullable', new CategoryExistenceRule()],
         ];
     }
 }

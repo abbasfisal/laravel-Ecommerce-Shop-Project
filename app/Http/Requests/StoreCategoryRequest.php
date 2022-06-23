@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Rules\CategoryExistenceRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreCategoryRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class StoreCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -24,8 +25,10 @@ class StoreCategoryRequest extends FormRequest
      */
     public function rules()
     {
+        
+
         return [
-            'id'       => 'required|exists:categories,id',
+
             'title'    => 'required|string|min:3',
             'slug'     => 'required|string|min:3',
             'category' => ['required', new CategoryExistenceRule()]
