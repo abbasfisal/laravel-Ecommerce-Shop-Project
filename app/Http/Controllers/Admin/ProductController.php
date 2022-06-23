@@ -10,7 +10,6 @@ use App\Http\Controllers\Admin\Services\SizeService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\getSubCategoryRequest;
 use App\Http\Requests\StoreProductRequest;
-use App\Models\Color;
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -63,16 +62,20 @@ class ProductController extends Controller
     {
         //return $product;
         $sizes = SizeService::getAll();
-        $categories = CategoryService::getAll();
+        $categories = CategoryService::getMainCategories();
+
+         $subCategories = CategoryService::getSubCatByCategory($product->category->parent->id);
+
         $colors = ColorService::getAll();
         $brands = BrandService::getAll();
         return view('admin.products.edit',
             compact(
                 'product',
                 'categories',
-                         'sizes',
+                'sizes',
                 'colors',
-                'brands'
+                'brands',
+                'subCategories'
             ));
     }
 }

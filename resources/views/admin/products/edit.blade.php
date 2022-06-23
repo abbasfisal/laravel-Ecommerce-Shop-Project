@@ -21,23 +21,41 @@
 
         {{--category / sub category--}}
         <br>
-        <div class="col-lg-10 m-auto mt-3">
+        <div class="col-lg-10 m-auto">
             <div class="row ">
+
                 {{--category--}}
                 <div class="col-md-6 ">
-                    <label for="main_category" class="form-label">Main Category</label>
-                    <div class="alert bg-warning">
-                        <b><i>{{$product->category->parent->title}}</i></b>
-                    </div>
+                    <label for="main_category" class="form-label">Select Category</label>
+                    <select class="form-control form-select" id="main_category" name="main_category">
+                        <option value="0">Select a Category</option>
+                        @foreach($categories as $category)
+                            <option
+
+                                {{$category->id == $product->category->parent->id ? 'selected' : null}}
+                                value="{{$category->id}}">{{$category->title}} a Category
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('main_category')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+
                 </div>
                 {{--sub category--}}
                 <div class="col-md-6 ">
                     <label for="category_id" class="form-label">Select SubCategory</label>
-                    <div class="alert bg-success">
-                        <b>
-                            {{$product->category->title}}
-                        </b>
-                    </div>
+                    <select class="form-control form-select" id="category_id" name="category_id">
+                        @foreach($subCategories as $subcategory)
+                            <option
+
+                                {{$subcategory->id ==$product->category_id ? 'selected' : null}}
+                                value="{{$subcategory->id}}">{{$subcategory->title}}</option>
+                        @endforeach
+                    </select>
+                    @error('category_id')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
 
                 </div>
             </div>
