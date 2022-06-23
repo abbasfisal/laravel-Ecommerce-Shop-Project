@@ -14,4 +14,17 @@ class uploadService extends Controller
 
         return $imageName;
     }
+
+    /**
+     * Delete a Image
+     * @param $ImageName
+     * @param $ImagePath
+     */
+    public static function RemoveImage($ImageName, $ImagePath)
+    {
+        if (file_exists($ImagePath . $ImageName)) {
+            unlink($ImagePath . $ImageName);
+        }
+
+    }
 }

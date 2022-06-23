@@ -170,8 +170,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'adminauth'], fun
          ->name('show.edit.category');
 
     //update category
-    Route::post('/category/edit' , [CategoryController::class , 'Update'])
-        ->name('update.category');
+    Route::post('/category/update', [CategoryController::class, 'Update'])
+         ->name('update.category');
     /*
      |------------------------------
      | Brand
@@ -184,6 +184,12 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'adminauth'], fun
     //store new
     Route::post('/brand', [BrandController::class, 'store'])
          ->name('store.brand');
+
+    Route::get('/brand/edit/{brand}', [BrandController::class, 'ShowEdit'])
+         ->name('show.edit.brand');
+
+    Route::post('/brand/update', [BrandController::class, 'Update'])
+         ->name('update.brand');
 
     /*
      |------------------------------

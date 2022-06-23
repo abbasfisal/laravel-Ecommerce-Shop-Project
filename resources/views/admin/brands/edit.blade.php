@@ -1,25 +1,34 @@
 @extends('admin.layouts.app')
 @section('content')
+    <h3>Edit Brand</h3>
     <div class="row">
         <div class="col-xl-6 m-auto">
             <div class="card">
                 @if(session('success'))
-                    <div class="alert text-success">
+                    <div class="alert alert-success">
                         {{session('success')}}
                     </div>
                 @endif
+
+                @if(session('fail'))
+                    <div class="alert alert-danger ">
+                        {{session('fail')}}
+                    </div>
+                @endif
+
                 <div class="card-body">
-                    <form action="{{route('store.brand')}}" enctype="multipart/form-data" method="post">
+                    <form action="{{route('update.brand')}}" enctype="multipart/form-data" method="post">
                         @csrf
                         @method('post')
                         <div class="row">
+                            <input type="hidden" name="id" value="{{$brand->id}}">
                             {{--title--}}
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="validationCustom01" class="form-label">Title</label>
                                     <input type="text"
                                            name="title"
-                                           value="{{old('title')}}"
+                                           value="{{$brand->title ?? old('title')}}"
                                            class="form-control @error('title') is-ivalid @enderror"
                                            placeholder="Title">
 
@@ -36,7 +45,7 @@
                                            name="slug"
                                            class="form-control @error('parent') is-ivalid @enderror"
                                            id="slug"
-                                           placeholder="slug" value="{{old('slug')}}">
+                                           placeholder="slug" value="{{$brand->slug?? old('slug')}}">
                                     @error('slug')
                                     <div class="text-danger">
                                         {{$message}}
@@ -60,61 +69,21 @@
                                     @enderror
 
                                 </div>
+                                <div class="text-center">
+                                    <img src="{{asset(config('shop.brandImagePath').$brand->image)}}" alt="">
+                                </div>
+                                <br>
+
                             </div>
 
                         </div>
 
                         <div class="row">
-                            <button class="btn btn-info" type="submit">Create New Brand</button>
+                            <button class="btn btn-info" type="submit">Update Brand</button>
                         </div>
                     </form>
                 </div>
             </div>
             <!-- end card -->
         </div>
-        <div class="row rounded-3 shadow m-auto">
-            <div class="table-responsive">
-                <table class="table  table-nowrap align-middle table-edits">
-                    <thead>
-                    <tr style="">
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>SLUG</th>
-                        <th>image</th>
-                        <th class="text-center">Opt</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    @foreach( $brands_paginate as $key =>$brand)
-                        <tr data-id="5" style="cursor: pointer;">
-                            <td data-field="id">{{$brands_paginate->firstItem() + $key}}</td>
-                            <td data-field="title">{{$brand->title}}</td>
-                            <td data-field="slug">{{$brand->slug}}</td>
-                            <td data-field="image">
-                                <img
-                                    class="avatar-lg shadow"
-                                    height="100px"
-                                    src="{{asset(config('shop.brandImagePath'). $brand->image)}}">
-                            </td>
-                            <td class="text-center">
-                                <a
-                                    href="{{route('show.edit.brand',$brand->id)}}"
-                                    class="btn btn-outline-warning btn-sm edit" title="Edit">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </a>
-                                &nbsp;
-                                <a class="btn btn-outline-danger btn-sm edit" title="delete">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
-
-                    </tbody>
-                </table>
-                {!! $brands_paginate->links() !!}
-            </div>
-        </div>
-    </div>
 @endsection
