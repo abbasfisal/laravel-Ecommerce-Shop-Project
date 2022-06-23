@@ -39,7 +39,7 @@
                             </td>
                             <td class="text-center">
                                 <a
-                                    href="#{{$product->id}}"
+                                    href="{{route('show.edit.product' , $product->id)}}"
                                     class="btn btn-outline-warning btn-sm edit" title="Edit">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>

@@ -274,6 +274,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'adminauth'], fun
     Route::post('/discount', [DiscountController::class, 'store'])
          ->name('store.discount');
 
+    //show edit form
+    Route::get('/discount/edit/{discount}', [DiscountController::class, 'ShowEdit'])
+         ->name('show.edit.discount');
+
+    //update
+    Route::post('/discount/update', [DiscountController::class, 'Update'])
+         ->name('update.discount');
+
     /*
      |------------------------------
      | Product
@@ -298,6 +306,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'adminauth'], fun
     //get subcategory used by ajax in the create form
     Route::post('/product/subcategory', [ProductController::class, 'getSubCategory'])
          ->name('subcategory.product');
+
+    //show edit form
+    Route::get('/product/{product}', [ProductController::class, 'ShowEdit'])
+         ->name('show.edit.product');
+
+    Route::post('/product/update', [ProductController::class, 'Update'])
+         ->name('update.product');
 });
 
 /*

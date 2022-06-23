@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Services\SizeService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\getSubCategoryRequest;
 use App\Http\Requests\StoreProductRequest;
+use App\Models\Color;
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -18,7 +19,7 @@ class ProductController extends Controller
     {
         $products = ProductService::getWithPagination();
 
-        return view('admin.products.index' ,compact('products'));
+        return view('admin.products.index', compact('products'));
     }
 
     public function create()
@@ -53,9 +54,25 @@ class ProductController extends Controller
     }
 
 
-    public function getProductById(Product $product , $slug)
+    public function getProductById(Product $product, $slug)
     {
+        return view('admin.products.product_details', compact('product'));
+    }
 
-        return view('admin.products.product_details'  , compact('product'));
+    public function ShowEdit(Product $product)
+    {
+        //return $product;
+        $sizes = SizeService::getAll();
+        $categories = CategoryService::getAll();
+        $colors = ColorService::getAll();
+        $brands = BrandService::getAll();
+        return view('admin.products.edit',
+            compact(
+                'product',
+                'categories',
+                         'sizes',
+                'colors',
+                'brands'
+            ));
     }
 }
