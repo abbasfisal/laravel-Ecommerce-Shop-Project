@@ -165,7 +165,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'adminauth'], fun
     Route::post('/category', [CategoryController::class, 'store'])
          ->name('store.category');
 
+    //show edit form
+    Route::get('/category/edit/{category}', [CategoryController::class, 'ShowEdit'])
+         ->name('show.edit.category');
 
+    //update category
+    Route::post('/category/edit' , [CategoryController::class , 'Update'])
+        ->name('update.category');
     /*
      |------------------------------
      | Brand
@@ -194,11 +200,11 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'adminauth'], fun
 
 
     //show eidt form
-    Route::get('/color/edit/{color}'  , [ColorController::class , 'ShowEdit'])
-        ->name('show.edit.color');
+    Route::get('/color/edit/{color}', [ColorController::class, 'ShowEdit'])
+         ->name('show.edit.color');
 
-    Route::post('/color/update' , [ColorController::class , 'Update'])
-        ->name('update.color');
+    Route::post('/color/update', [ColorController::class, 'Update'])
+         ->name('update.color');
 
     /*
      |------------------------------

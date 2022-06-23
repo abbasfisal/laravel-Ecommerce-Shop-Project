@@ -132,7 +132,7 @@
                             </td>
                             <td class="text-center">
                                 <a
-                                    href="#{{$cat->id}}"
+                                    href="{{route('show.edit.category',$cat->id)}}"
                                     class="btn btn-outline-warning btn-sm edit" title="Edit">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>

@@ -30,8 +30,7 @@ class CategoryExistenceRule implements Rule
         if ($value == 0)
             return true;
 
-        if (Category::where('id', $value)
-                    ->count() >0) {
+        if (Category::where('id', $value)->count() > 0) {
 
             return true;
         }

@@ -60,4 +60,30 @@ class CategoryService
         return Category::query()
                        ->find($category_id)->subcategories;
     }
+
+    /**
+     * check category is as a parent or not
+     * @param Category $category
+     */
+    public static function CheckIsParent(Category $category)
+    {
+        return $category->parent_id ===null ? false : true;
+    }
+
+
+    /**
+     * Update a Category
+     * @param Request $request
+     * @return bool|int
+     */
+    public static function Update(Request $request)
+    {
+        $category = Category::query()->find($request->id);
+
+        return $category->update([
+            'title'=>$request->title ,
+            'slug'=> $request->slug ,
+            'parent_id' => $request->category == 0 ? null : $request->category
+        ]);
+    }
 }
