@@ -25,7 +25,8 @@ class HomeController extends Controller
 
     public function getSingleProduct(Product $product, $slug)
     {
-        return view('singleproduct', compact('product'));
+        $data = $this->getMenuAndSetCache();
+        return view('singleproduct', compact('product' , 'data'));
     }
 
     /**
