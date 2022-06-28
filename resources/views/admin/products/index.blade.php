@@ -24,7 +24,7 @@
                             <td data-field="title">{{$product->title}}</td>
                             <td><b class="badge rounded-pill bg-success">{{$product->price}}</b></td>
                             <td class="">
-                                <input type="checkbox"
+                                <input disabled type="checkbox"
                                        {{$product->active ? 'checked':null}}
                                        class="form-check">
 
