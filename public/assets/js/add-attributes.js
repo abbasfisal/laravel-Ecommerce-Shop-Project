@@ -23,7 +23,7 @@ $(document).ready(function () {
 
     $(document).on('click' ,"#btn-remove-attr",function(){
         $("#main-holder"+$(this).attr('value')).remove();
-       //alert('btn remove clicked' + $(this).attr('value'))
+
     });
 
 })

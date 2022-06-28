@@ -27,4 +27,18 @@ class uploadService extends Controller
         }
 
     }
+
+    /**
+     * Remove coolections of Images
+     * @param \Illuminate\Database\Eloquent\Collection $productGalleries
+     * @param $ImagePath
+     */
+    public static function removeImages(\Illuminate\Database\Eloquent\Collection $productGalleries, $ImagePath)
+    {
+        foreach ($productGalleries as $productGallery) {
+            uploadService::RemoveImage($productGallery->image, $ImagePath);
+        }
+    }
+
+
 }

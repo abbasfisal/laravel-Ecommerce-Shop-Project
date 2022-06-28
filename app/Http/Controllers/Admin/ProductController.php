@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Services\SizeService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\getSubCategoryRequest;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -64,7 +65,7 @@ class ProductController extends Controller
         $sizes = SizeService::getAll();
         $categories = CategoryService::getMainCategories();
 
-         $subCategories = CategoryService::getSubCatByCategory($product->category->parent->id);
+        $subCategories = CategoryService::getSubCatByCategory($product->category->parent->id);
 
         $colors = ColorService::getAll();
         $brands = BrandService::getAll();
@@ -77,5 +78,15 @@ class ProductController extends Controller
                 'brands',
                 'subCategories'
             ));
+    }
+
+    public function Update(UpdateProductRequest $request)
+    {
+        $update_result = ProductService::Update($request);
+
+        if ($update_result) {
+            return redirect()->back()->with('succ',config('shop.msg.update'));
+        }
+        return  redirect()->back()->with('fail' , config('shop.msg.fail_update'));
     }
 }

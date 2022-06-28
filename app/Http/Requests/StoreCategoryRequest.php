@@ -25,7 +25,7 @@ class StoreCategoryRequest extends FormRequest
      */
     public function rules()
     {
-        
+
 
         return [
 

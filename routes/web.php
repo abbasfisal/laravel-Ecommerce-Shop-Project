@@ -311,6 +311,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'adminauth'], fun
     Route::get('/product/{product}', [ProductController::class, 'ShowEdit'])
          ->name('show.edit.product');
 
+    //update
     Route::post('/product/update', [ProductController::class, 'Update'])
          ->name('update.product');
 });

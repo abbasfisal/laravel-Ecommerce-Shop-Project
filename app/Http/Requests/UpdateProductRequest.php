@@ -7,7 +7,7 @@ use App\Rules\SizeRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class StoreProductRequest extends FormRequest
+class UpdateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -48,7 +48,7 @@ class StoreProductRequest extends FormRequest
             "started_at"        => 'nullable|date', //start day for takhfif
             "end_at"            => 'nullable|date|after_or_equal:started_at',//end day for takhfif
 
-            "cover"             => 'required|mimes:jpg,jpeg,png',
+            "cover"             => 'nullable|mimes:jpg,jpeg,png',
             'galleries'         => 'nullable', //for gallery
             'galleries.*'       => 'mimes:jpg,jpeg,png', //for gallery
 

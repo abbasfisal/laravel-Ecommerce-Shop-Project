@@ -227,7 +227,7 @@
 
             </div>
 
-            {{--image--}}
+            {{--image galleris--}}
             <div class="col-lg-10 m-auto">
                 <br>
                 <label for="cover" class="form-label">Select Images for Product Gallery</label>
