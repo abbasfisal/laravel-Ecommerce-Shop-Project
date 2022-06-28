@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
@@ -123,8 +124,8 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
  |
  */
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'adminauth'], function () {
-    Route::view('/', 'admin.layouts.app')
-         ->name('index.admin');
+    Route::get('/', [DashboardController::class , 'index'])
+         ->name('index.admin.dashboard');
 
     /*
      |------------------------------
