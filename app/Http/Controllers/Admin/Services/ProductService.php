@@ -216,9 +216,6 @@ class ProductService extends Controller
             }
 
 
-
-
-
             $product->colors()
                     ->sync($request->colors);
 
@@ -256,19 +253,30 @@ class ProductService extends Controller
 
         uploadService::removeImages($productGalleries, config('shop.productGalleris'));
 
-        $product->product_galleries()->delete();
+        $product->product_galleries()
+                ->delete();
 
         foreach ($request->file('galleries') as $galleryImage) {
             //upload
             $upload_gall = uploadService::handle($galleryImage, config('shop.productGalleris'), 'gallery');
 
-            $product->product_galleries()->create([
-                'image' => $upload_gall
-            ]);
+            $product->product_galleries()
+                    ->create([
+                        'image' => $upload_gall
+                    ]);
 
 
         }
 
+    }
+
+    /**
+     * get all product count
+     */
+    public static function count()
+    {
+        return Product::query()
+                      ->count();
     }
 
 

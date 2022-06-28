@@ -23,7 +23,8 @@ class CategoryService
 
     public static function getMainCategories()
     {
-        return Category::where('parent_id', null)->get();
+        return Category::where('parent_id', null)
+                       ->get();
     }
 
     /**
@@ -67,7 +68,7 @@ class CategoryService
      */
     public static function CheckIsParent(Category $category)
     {
-        return $category->parent_id ===null ? false : true;
+        return $category->parent_id === null ? false : true;
     }
 
 
@@ -78,12 +79,24 @@ class CategoryService
      */
     public static function Update(Request $request)
     {
-        $category = Category::query()->find($request->id);
+        $category = Category::query()
+                            ->find($request->id);
 
         return $category->update([
-            'title'=>$request->title ,
-            'slug'=> $request->slug ,
+            'title'     => $request->title,
+            'slug'      => $request->slug,
             'parent_id' => $request->category == 0 ? null : $request->category
         ]);
+    }
+
+    /**
+     * get main category count
+     * @return int
+     */
+    public static function MainCategoryCount()
+    {
+        return Category::query()
+                       ->where(Category::c_parent_id, null)
+                       ->count();
     }
 }

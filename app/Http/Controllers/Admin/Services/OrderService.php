@@ -47,4 +47,24 @@ class OrderService extends Controller
                     ->where('tracking_code', $code)
                     ->orWhere('payment_code', $code)->first();
     }
+
+
+    /**
+     * get orders count with status = new
+     * @return int
+     */
+    public static function newCount()
+    {
+        return Order::query()->where('status', Order::status_new)->count();
+    }
+
+
+    /**
+     * get all orders count
+     * @return int
+     */
+    public static function allCount()
+    {
+        return Order::query()->count();
+    }
 }
