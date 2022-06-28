@@ -27,14 +27,14 @@ class CreateBasketsTable extends Migration
                   ->cascadeOnDelete();
 
             $table->foreignId('size_id')
-                  ->nullable()
-                  ->references('sizes')
+                ->nullable()
+                ->constrained('sizes')
                   ->cascadeOnUpdate()
                   ->cascadeOnDelete();
 
             $table->foreignId('color_id')
                   ->nullable()
-                  ->references('colors')
+                  ->constrained('colors')
                   ->cascadeOnDelete()
                   ->cascadeOnUpdate();
 

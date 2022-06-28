@@ -333,6 +333,8 @@ Route::get('/', [HomeController::class, 'index'])
 Route::get('/{product}/{slug}', [HomeController::class, 'getSingleProduct'])
      ->name('get.product.home');
 
+
+
 /*
  |------------------------------
  | for test only
