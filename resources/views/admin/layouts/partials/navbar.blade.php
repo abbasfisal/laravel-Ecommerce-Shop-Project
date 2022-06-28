@@ -3,16 +3,9 @@
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/index.html" class="logo logo-dark">
-                                <span class="logo-sm">
-                                    <img src="{{asset('assets/images/logo-sm-dark.png')}}" alt="logo-sm-dark" height="26">
-                                </span>
-                    <span class="logo-lg">
-                                    <img src="{{asset('assets/images/logo-dark.png')}}" alt="logo-dark" height="24">
-                                </span>
-                </a>
 
-                <a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/index.html" class="logo logo-light">
+
+                <a href="{{route('index')}}" target="_blank" class="logo logo-light">
                                 <span class="logo-sm">
                                     <img src="{{asset('assets/images/logo-sm-light.png')}}" alt="logo-sm-light" height="26">
                                 </span>

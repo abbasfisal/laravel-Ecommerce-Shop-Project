@@ -12,9 +12,11 @@ class DashboardController extends Controller
 
         $data = DashboardService::getInformation();
 
-        return view('admin.dashboard.index', compact(
-            'data'
-        ));
+        return view('admin.dashboard.index',
+            compact(
+                'data'
+            )
+        );
 
     }
 }
