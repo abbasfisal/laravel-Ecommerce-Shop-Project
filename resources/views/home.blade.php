@@ -1,4 +1,4 @@
-@extends('user.layouts.app')
+@extends('user.layouts.app',$data)
 @section('content')
 
     @if(session('succ-add-wishlist'))

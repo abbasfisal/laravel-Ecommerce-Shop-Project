@@ -23,7 +23,7 @@
 <body data-topbar="dark" data-layout="horizontal" data-layout-size="boxed">
 <div id="layout-wrapper">
     @include('user.layouts.partials.menue')
-    @include('user.layouts.partials.headermenue')
+    @include('user.layouts.partials.headermenue' , $data)
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">

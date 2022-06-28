@@ -1,27 +1,36 @@
 <div class="topnav">
     <div class="container-fluid">
+
         <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
 
             <div class="collapse navbar-collapse" id="topnav-menu-content">
                 <ul class="navbar-nav">
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">
-                            <i class="ri-dashboard-line me-2"></i> Home
-                        </a>
-                    </li>
+                    @isset($data)
+                        @foreach($data as $main)
 
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-apps" role="button">
+                                    <i class="ri-apps-2-line me-2"></i>{{$main['title']}}
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-apps" role="button">
-                            <i class="ri-apps-2-line me-2"></i>Apps
-                            <div class="arrow-down"></div>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="topnav-apps">
-                            <a href="calendar.html" class="dropdown-item">Calendar</a>
-                            <a href="apps-chat.html" class="dropdown-item">Chat</a>
-                        </div>
-                    </li>
+                                    @isset($main['data'])
+                                        <div class="arrow-down"></div>
+                                    @endisset
+                                </a>
+                                @isset($main['data'])
+                                    <div class="dropdown-menu" aria-labelledby="topnav-apps">
+                                        @foreach($main['data'] as $sub)
+                                            <a href="calendar.html" class="dropdown-item">{{$sub['title']}}</a>
+
+                                        @endforeach
+
+                                    </div>
+                                @endisset
+
+                            </li>
+                        @endforeach
+                    @endisset
+                    
 
 
                     <li class="nav-item dropdown">
