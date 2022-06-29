@@ -20,6 +20,7 @@ class ProductFactory extends Factory
         return [
             'category_id'       => Category::query()->where('parent_id' , '!=' , null)->get()
                                            ->random(),
+
             'brand_id'          => Brand::all()
                                         ->random(),
             'title'             => $title,

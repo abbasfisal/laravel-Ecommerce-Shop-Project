@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Color;
@@ -38,8 +39,10 @@ class DatabaseSeeder extends Seeder
 
         $this->makeCityWithState();
 
-        Product::truncate();
-        Product::factory(2)->create();
+        $this->makeBrands();
+
+        $this->makeProducts();
+
         Schema::enableForeignKeyConstraints();
 
     }
@@ -50,7 +53,7 @@ class DatabaseSeeder extends Seeder
      * @param int $stateMinCount
      * @param int $stateMaxCount
      */
-    private  function makeCityWithState($cityCount = 30, $stateMinCount = 5, $stateMaxCount = 15)
+    private function makeCityWithState($cityCount = 30, $stateMinCount = 5, $stateMaxCount = 15)
     {
         City::truncate();
 
@@ -68,7 +71,7 @@ class DatabaseSeeder extends Seeder
      * @param int $SubMinCount
      * @param int $SubMaxCount
      */
-    private  function makeCategory($MainCount = 5, $SubMinCount = 2, $SubMaxCount = 6)
+    private function makeCategory($MainCount = 5, $SubMinCount = 2, $SubMaxCount = 6)
     {
         Category::truncate();
         Category::factory($MainCount)
@@ -103,6 +106,25 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminSeeder::class);
         $this->command->info('Admin just Seeded');
 
+    }
+
+    private function makeBrands()
+    {
+        Brand::truncate();
+
+        Brand::factory()
+             ->count(rand(5, 20))
+             ->create();
+
+        $this->command->info('Brands just seeded');
+    }
+
+    private function makeProducts(): void
+    {
+        Product::truncate();
+        Product::factory()
+               ->count(3)
+               ->create();
     }
 
 }
