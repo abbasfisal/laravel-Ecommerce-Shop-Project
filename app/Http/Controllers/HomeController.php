@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Admin\Services\CategoryService;
+use App\Http\Controllers\Admin\Services\CommentService;
 use App\Http\Controllers\Admin\Services\MenueService;
 use App\Http\Controllers\Admin\Services\ProductService;
 use App\Models\Product;
@@ -27,7 +28,9 @@ class HomeController extends Controller
     public function getSingleProduct(Product $product, $slug)
     {
         $data = MenueService::getMenuAndSetCache();
-        return view('singleproduct', compact('product' , 'data'));
+
+         $comments = User\Services\CommentService::getWithPagination($product);
+        return view('singleproduct', compact('product' , 'data' ,'comments'));
     }
 
 

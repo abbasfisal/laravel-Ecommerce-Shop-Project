@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\OrderController;
@@ -113,8 +114,8 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
          ->name('pay.user');
     /*->can('view', 'order');*/
 
-    Route::post('/add/comment/{product}'  , [UserController::class , 'addComment'])
-        ->name('add.comment.user');
+    Route::post('/add/comment/{product}', [UserController::class, 'addComment'])
+         ->name('add.comment.user');
 });
 
 
@@ -318,6 +319,26 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'adminauth'], fun
     //update
     Route::post('/product/update', [ProductController::class, 'Update'])
          ->name('update.product');
+
+    /*
+     |------------------------------
+     | Comments
+     |------------------------------
+     */
+    Route::get('/comments/all', [CommentController::class, 'index'])
+         ->name('show.comments');
+
+    Route::get('/comment/{comment}/delete', [CommentController::class, 'delete'])
+         ->name('delete.comment');
+
+    Route::get('/comment/{comment}/show', [CommentController::class, 'showComment'])
+         ->name('show.comment');
+
+    Route::get('/commnet/{comment}/reply' , [CommentController::class , 'addReply'])
+        ->name('add.reply.comment');
+
+    Route::get('/comment/{comment}/change-show' , [CommentController::class , 'changeShowStatus'])
+        ->name('change.show.comment');
 });
 
 /*
@@ -396,6 +417,7 @@ Route::get('/ss', function () {
 
 Route::get('/l', function () {
 
-    return \App\Models\Product::factory(2)->create();
+    return \App\Models\Product::factory(2)
+                              ->create();
 });
 

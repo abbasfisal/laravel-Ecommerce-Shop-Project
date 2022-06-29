@@ -26,10 +26,10 @@
                 </li>
 
                 <li>
-                    <a href="web-template/appziaadmin-20/appziaadmin-20/Appzia_v2.0/Admin/dist/apps-chat.html"
+                    <a href="{{route('show.comments')}}"
                        class=" waves-effect">
                         <i class="ri-chat-1-line"></i>
-                        <span>Chat</span>
+                        <span>Comments</span>
                     </a>
                 </li>
                 {{--orders--}}

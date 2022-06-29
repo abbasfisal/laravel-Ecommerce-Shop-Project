@@ -302,7 +302,7 @@ class UserController extends Controller
     {
         $create_result = CommentService::create($request, Auth::id(), $product);
 
-       
+
         if ($create_result)
             return redirect()
                 ->back()
