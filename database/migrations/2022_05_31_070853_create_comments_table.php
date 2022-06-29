@@ -35,7 +35,7 @@ class CreateCommentsTable extends Migration
                   ->cascadeOnUpdate()
                   ->cascadeOnUpdate();
 
-            $table->string('text');
+            $table->text('text');
 
             $table->boolean('show')
                   ->default(false);

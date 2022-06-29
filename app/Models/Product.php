@@ -104,4 +104,9 @@ class Product extends Model
     {
         return $this->hasMany(OrderItem::clas);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

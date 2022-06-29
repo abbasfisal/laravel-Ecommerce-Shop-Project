@@ -12,6 +12,15 @@
         <div class="alert alert-success col-lg-11 m-auto mb-2">{{session('succ')}}</div>
     @endif
 
+    @if(session('fail'))
+
+        <div class="alert alert-danger col-lg-11 m-auto mb-2">{{session('fail')}}</div>
+    @endif
+
+
+
+    <div class="alert alert-danger col-lg-11 m-auto mb-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque facere itaque iure quam sit veniam! Et excepturi nemo non reprehenderit repudiandae. Commodi dicta enim fugiat iste minus nihil temporibus voluptates!</div>
+
     <div class="col-lg-12 ">
         <div class="row justify-content-center">
             <div class="col-lg-5 p-3 bg-white  shadow rounded-3 border">
@@ -184,9 +193,14 @@
                             </p>
                         </div>
                         <div class="tab-pane" id="messages1" role="tabpanel">
-                            <p class="mb-0">
+                            <form action="{{route('add.comment.user' , $product->id)}}" class="col-lg-8 m-auto" method="post">
+                                @method('post')
+                                @csrf
 
-                            </p>
+                                <textarea name="text" class="form-control " cols="15" rows="10" placeholder="Enter Your Comment Text "></textarea>
+                                <br>
+                                <button type="submit" class="btn btn-info">Send</button>
+                            </form>
                         </div>
 
                     </div>

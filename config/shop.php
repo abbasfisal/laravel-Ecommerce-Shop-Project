@@ -70,5 +70,8 @@ return [
 
         'empty_search' => 'The Order Search Result Was Empty',
 
+        'succ_comment' =>'Your Comment successfully sbmited , after review it will be shown ' ,
+        'fail_commment' =>'Somthing Goes Wrong , try again'
+
     ]
 ];

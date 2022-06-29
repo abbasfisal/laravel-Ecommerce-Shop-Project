@@ -9,9 +9,11 @@ use App\Http\Controllers\Admin\Services\ProductService;
 use App\Http\Controllers\Admin\Services\StateService;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\User\Services\BasketService;
+use App\Http\Controllers\User\Services\CommentService;
 use App\Http\Controllers\User\Services\OrderServices;
 use App\Http\Controllers\User\Services\WishListService;
 use App\Http\Requests\AddBasketRequest;
+use App\Http\Requests\AddCommentRequest;
 use App\Http\Requests\CheckCouponRequest;
 use App\Http\Requests\DiscountRequest;
 use App\Http\Requests\GetStateByCityIDRequest;
@@ -68,7 +70,7 @@ class UserController extends Controller
         $wishlists = WishListService::getFor(Auth::id());
 
         $data = $this->menue;
-        return view('user.wishlist', compact('wishlists','data'));
+        return view('user.wishlist', compact('wishlists', 'data'));
     }
 
     /**
@@ -219,10 +221,10 @@ class UserController extends Controller
         if (isset($request->code)) {
             //coupon code(title)
             $code = $request->code;
-            return view('user.address', compact('code', 'cities','data'));
+            return view('user.address', compact('code', 'cities', 'data'));
         }
 
-        return view('user.address', compact('cities' ,'data'));
+        return view('user.address', compact('cities', 'data'));
 
     }
 
@@ -236,7 +238,7 @@ class UserController extends Controller
 
         $data = $this->menue;
 
-        return view('user.orderfactor', compact('order' , 'data'));
+        return view('user.orderfactor', compact('order', 'data'));
 
 
     }
@@ -284,7 +286,7 @@ class UserController extends Controller
 
             self::ReduceInventry($order);
 
-            return view('user.order_result', compact('order','data'));
+            return view('user.order_result', compact('order', 'data'));
         }
 
         if ($pay_request->failed()) {
@@ -293,6 +295,22 @@ class UserController extends Controller
             ]);
         }
 
+    }
+
+
+    public function addComment(AddCommentRequest $request, Product $product)
+    {
+        $create_result = CommentService::create($request, Auth::id(), $product);
+
+       
+        if ($create_result)
+            return redirect()
+                ->back()
+                ->with('succ', config('shop.msg.succ_comment'));
+
+        return redirect()
+            ->back()
+            ->with('fail', config('shop.msg.fail_comment'));
     }
 
     /*

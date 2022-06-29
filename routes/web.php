@@ -112,6 +112,9 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
     Route::get('/basket/pay/{order}', [UserController::class, 'Pay'])
          ->name('pay.user');
     /*->can('view', 'order');*/
+
+    Route::post('/add/comment/{product}'  , [UserController::class , 'addComment'])
+        ->name('add.comment.user');
 });
 
 
