@@ -124,7 +124,7 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
  |
  */
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'adminauth'], function () {
-    Route::get('/', [DashboardController::class , 'index'])
+    Route::get('/', [DashboardController::class, 'index'])
          ->name('index.admin.dashboard');
 
     /*
@@ -334,7 +334,6 @@ Route::get('/{product}/{slug}', [HomeController::class, 'getSingleProduct'])
      ->name('get.product.home');
 
 
-
 /*
  |------------------------------
  | for test only
@@ -393,6 +392,11 @@ Route::get('/ss', function () {
 });*/
 
 Route::get('/l', function () {
-    return \App\Models\Color::factory()->create();
+    return \App\Models\City::with('states')
+                           ->get()
+                           ->toArray();
+    return \App\Models\City::factory()
+                           ->hasstates(4)
+                           ->create();
 });
 
