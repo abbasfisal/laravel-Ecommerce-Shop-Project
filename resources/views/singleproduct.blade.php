@@ -65,7 +65,7 @@
                 <form action="{{route('add.basket.user')}}" method="post">
                     @csrf
                     @method('post')
-                    <input type="hidden" value="{{$product->id}}" name="product_id" />
+                    <input type="hidden" value="{{$product->id}}" name="product_id"/>
                     @if(count($product->colors))
                         <strong>Select Color</strong><br>
                         <div class="mt-2">
@@ -93,6 +93,17 @@
                         </div>
                         <hr class="col-lg-5 m-auto">
                     @endif
+                    <br>
+                    <br>
+                    <div class="p-4">
+                        price : <h4 class="text-pink">@money($product->price)$</h4>
+                        <br>
+                        @isset($product->on_sale)
+                            @if(now()->isBetween($product->started_at , $product->end_at))
+                                on sale price : <h3 class="text-danger">@money($product->on_sale)$</h3>
+                            @endif
+                        @endisset
+                    </div>
                     {{--button--}}
                     <br>
                     <br>
@@ -185,13 +196,7 @@
         </div>
 
     </div>
-    {{--tabs --}}
 
-    <div class="col-lg-11 m-auto border mt-2"><b>descriptions-logn-short</b></div>
-    <div class="col-lg-6 m-auto">
-        <hr>
-    </div>
-    <div class="col-lg-11 m-auto border mt-2"><b>descriptions-logn-short</b></div>
 
 @endsection
 @push('footer')
@@ -219,8 +224,6 @@
                 "autoPlayTimeout": 5000
 
             });
-
-
 
 
         });
