@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\UserController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 
@@ -393,8 +394,6 @@ Route::get('/ss', function () {
 });*/
 
 Route::get('/l', function () {
-    \Illuminate\Support\Facades\Session::flush();
-    \Illuminate\Support\Facades\Auth::logout();
-    return redirect(route('login'));
+    return Category::factory()->create();
 });
 

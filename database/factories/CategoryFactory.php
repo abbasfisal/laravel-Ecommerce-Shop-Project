@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CategoryFactory extends Factory
 {
+
+
     /**
      * Define the model's default state.
      *
@@ -14,12 +16,12 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
-        $title = $this->faker->words;
 
+        $title = $this->faker->word();
         return [
 
-            Category::c_title     => $title,
-            Category::c_slug      => SLUG($title)
+            'title'=> $title ,
+            'slug'=> SLUG($title)
 
         ];
     }
@@ -27,7 +29,7 @@ class CategoryFactory extends Factory
 
     public function sub()
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function (array $attributes){
             return [
                 Category::c_parent_id => Category::factory(),
             ];
