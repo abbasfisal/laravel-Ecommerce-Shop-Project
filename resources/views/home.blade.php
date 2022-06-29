@@ -33,11 +33,7 @@
 
                         </div>
                         <div class="card-footer text-center">
-                            <a href="#" class="btn btn-outline-info">
-                                <i class="ri-shopping-bag-2-fill"></i>
-                                Add to Basket
-                            </a>
-
+                           
                             <a href="{{route('add.wish.user' ,$product->id)}}" class="btn btn-outline-danger">
                                 <i class="ri-heart-2-fill"></i>
                             </a>
