@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Admin\Services\CityService;
 use App\Http\Controllers\Admin\Services\DiscountService;
+use App\Http\Controllers\Admin\Services\MenueService;
 use App\Http\Controllers\Admin\Services\ProductService;
 use App\Http\Controllers\Admin\Services\StateService;
 use App\Http\Controllers\Controller;
@@ -21,13 +22,18 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Wishlist;
 use Evryn\LaravelToman\Facades\Toman;
-use Evryn\LaravelToman\FakeRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    protected $menue;
+
+    public function __construct()
+    {
+        $this->menue = MenueService::getMenuAndSetCache();
+    }
 
 
     /**
@@ -61,7 +67,8 @@ class UserController extends Controller
     {
         $wishlists = WishListService::getFor(Auth::id());
 
-        return view('user.wishlist', compact('wishlists'));
+        $data = $this->menue;
+        return view('user.wishlist', compact('wishlists','data'));
     }
 
     /**
@@ -70,6 +77,7 @@ class UserController extends Controller
     public function removeWishList(Wishlist $wishlist)
     {
         WishListService::remove($wishlist->id);
+
         return redirect(route('show.wish.user'))->with('succ', config('shop.msg.delete'));
     }
 
@@ -147,6 +155,8 @@ class UserController extends Controller
                        ->baskets()
                        ->get();
 
+        $data = $this->menue;
+
 
         if ($request->isMethod('post')) {
 
@@ -155,16 +165,16 @@ class UserController extends Controller
             if ($this->isValidCoupon($discount)) {
 
                 $coupon = $discount->toArray();
-                return view('user.basket', compact('baskets', 'coupon'));
+                return view('user.basket', compact('baskets', 'coupon', 'data'));
 
             } else {
                 $coupon_valid = config('shop.msg.coupon_expired');
-                return view('user.basket', compact('baskets', 'coupon_valid'));
+                return view('user.basket', compact('baskets', 'coupon_valid', 'data'));
             }
         }
 
 
-        return view('user.basket', compact('baskets'));
+        return view('user.basket', compact('baskets', 'data'));
     }
 
     /**
@@ -205,14 +215,14 @@ class UserController extends Controller
     public function showAddress(CheckCouponRequest $request)
     {
         $cities = CityService::getAll();
-
+        $data = $this->menue;
         if (isset($request->code)) {
             //coupon code(title)
             $code = $request->code;
-            return view('user.address', compact('code', 'cities'));
+            return view('user.address', compact('code', 'cities','data'));
         }
 
-        return view('user.address', compact('cities'));
+        return view('user.address', compact('cities' ,'data'));
 
     }
 
@@ -223,8 +233,10 @@ class UserController extends Controller
     {
 
         $order = OrderServices::StoreAddress(Auth::id(), $request);
-        //return $order;
-        return view('user.orderfactor', compact('order'));
+
+        $data = $this->menue;
+
+        return view('user.orderfactor', compact('order' , 'data'));
 
 
     }
@@ -256,7 +268,7 @@ class UserController extends Controller
                                 ->successful()
                                 ->withTransactionId(Str::random(4) . rand(1111, 9999));
 
-        }else{
+        } else {
             //total must pay
             $pay_request = Toman::fakeRequest()
                                 ->successful()
@@ -264,20 +276,20 @@ class UserController extends Controller
 
         }
 
-
+        $data = $this->menue;
         if ($pay_request->successful()) {
 
 
-            OrderServices::SuccessfullPaid($order , $pay_request);
+            OrderServices::SuccessfullPaid($order, $pay_request);
 
             self::ReduceInventry($order);
 
-            return view('user.order_result', compact('order'));
+            return view('user.order_result', compact('order','data'));
         }
 
-        if($pay_request->failed()){
+        if ($pay_request->failed()) {
             $order->update([
-                'status'=> Order::status_fail,
+                'status' => Order::status_fail,
             ]);
         }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Admin\Services\CategoryService;
+use App\Http\Controllers\Admin\Services\MenueService;
 use App\Http\Controllers\Admin\Services\ProductService;
 use App\Models\Product;
 use Illuminate\Support\Facades\Cache;
@@ -17,7 +18,7 @@ class HomeController extends Controller
         //get all product by pagination
         $products = ProductService::getWithPagination();
 
-        $data = $this->getMenuAndSetCache();
+        $data = MenueService::getMenuAndSetCache();
 
 
         return view('home', compact('products', 'data'));
@@ -25,23 +26,9 @@ class HomeController extends Controller
 
     public function getSingleProduct(Product $product, $slug)
     {
-        $data = $this->getMenuAndSetCache();
+        $data = MenueService::getMenuAndSetCache();
         return view('singleproduct', compact('product' , 'data'));
     }
 
-    /**
-     * get category for show in the menu bar
-     * with create cache
-     * @return mixed
-     */
-    private function getMenuAndSetCache()
-    {
-        if (!Cache::has('data')) {
 
-            $data = CategoryService::getMenue();
-            Cache::add('data', $data);
-        }
-        $data = Cache::get('data', now()->addMonth());
-        return $data;
-    }
 }

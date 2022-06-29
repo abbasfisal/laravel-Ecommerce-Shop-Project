@@ -392,11 +392,7 @@ Route::get('/ss', function () {
 });*/
 
 Route::get('/l', function () {
-    return \App\Models\City::with('states')
-                           ->get()
-                           ->toArray();
-    return \App\Models\City::factory()
-                           ->hasstates(4)
-                           ->create();
+
+    return \App\Models\Product::factory(2)->create();
 });
 

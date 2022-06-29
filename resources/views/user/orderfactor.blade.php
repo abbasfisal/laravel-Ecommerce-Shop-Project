@@ -170,6 +170,13 @@
                         </td>
                     </tr>
                 </table>
+            @else
+                <table class="table table-hover">
+                    <tr>
+                        <td><strong>Total Price :</strong></td>
+                        <td><h3 class="text-pink">@money($total) $</h3></td>
+                    </tr>
+                </table>
             @endif
 
 

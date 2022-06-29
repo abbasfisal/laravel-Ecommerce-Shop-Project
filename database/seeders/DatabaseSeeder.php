@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Color;
+use App\Models\Product;
 use App\Models\Size;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -37,6 +38,8 @@ class DatabaseSeeder extends Seeder
 
         $this->makeCityWithState();
 
+        Product::truncate();
+        Product::factory(2)->create();
         Schema::enableForeignKeyConstraints();
 
     }

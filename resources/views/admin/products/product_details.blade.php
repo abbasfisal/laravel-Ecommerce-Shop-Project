@@ -27,6 +27,7 @@
                 <div class="col-md-6 ">
                     <label for="main_category" class="form-label">Main Category</label>
                     <div class="alert bg-warning">
+
                         <b><i>{{$product->category->parent->title}}</i></b>
                     </div>
                 </div>
