@@ -393,6 +393,6 @@ Route::get('/ss', function () {
 });*/
 
 Route::get('/l', function () {
-    return \App\Models\Brand::factory()->create();
+    return \App\Models\Color::factory()->create();
 });
 
