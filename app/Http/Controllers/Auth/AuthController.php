@@ -97,7 +97,7 @@ class AuthController extends Controller
         //admin login
         if ($user->type == User::admin_type) {
             Auth::login($user);
-            return redirect(route('index.admin'));
+            return redirect(route('index.admin.dashboard'));
         }
 
         //user login
