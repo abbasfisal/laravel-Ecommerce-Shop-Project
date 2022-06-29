@@ -13,6 +13,12 @@
                     </div>
                 @endif
 
+                    @if(session('fail'))
+                        <div class="alert alert-danger">
+                            {{session('fail')}}
+                        </div>
+                    @endif
+
                 <label for="title" class="form-label">Product Title</label>
                 <input type="text" value="{{old('title')}}" name="title" id="title" class="form-control form-text">
                 @error('title')

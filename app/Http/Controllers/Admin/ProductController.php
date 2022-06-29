@@ -36,9 +36,16 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        ProductService::create($request);
+        $create_result = ProductService::create($request);
 
-        return redirect(route('create.product'))->with('success', config('shop.msg.create'));
+        if ($create_result) {
+
+            return redirect(route('create.product'))->with('success', config('shop.msg.create'));
+        }
+
+        return redirect(route('create.product'))->with('fail', config('shop.msg.fail_create'));
+
+
     }
 
 
@@ -85,8 +92,12 @@ class ProductController extends Controller
         $update_result = ProductService::Update($request);
 
         if ($update_result) {
-            return redirect()->back()->with('succ',config('shop.msg.update'));
+            return redirect()
+                ->back()
+                ->with('succ', config('shop.msg.update'));
         }
-        return  redirect()->back()->with('fail' , config('shop.msg.fail_update'));
+        return redirect()
+            ->back()
+            ->with('fail', config('shop.msg.fail_update'));
     }
 }

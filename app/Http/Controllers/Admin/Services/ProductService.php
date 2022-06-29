@@ -41,26 +41,40 @@ class ProductService extends Controller
             self::saveGalleriesImage($request, $product);
 
             //get attributes which is not null
-            $result = self::mergAndRemoveNullAttributes($request);
-
-            //save attributes in the proudct_details table
-            self::saveProductDetails($result, $product);
 
 
-            //save color /relation M:N COLOR
-            $product->colors()
-                    ->sync($request->colors);
+            if ($request->has('attr_titles') && $request->has('attr_values')) {
 
-            //save size / relation M:N SIZE
-            $product->sizes()
-                    ->sync($request->sizes);
+                $result = self::mergAndRemoveNullAttributes($request);
+
+                //save attributes in the proudct_details table
+                self::saveProductDetails($result, $product);
+            }
+
+            if ($request->has('colors')) {
+
+                //save color /relation M:N COLOR
+                $product->colors()
+                        ->sync($request->colors);
+            }
+
+            if ($request->has('sizes')) {
+                //save size / relation M:N SIZE
+
+                $product->sizes()
+                        ->sync($request->sizes);
+            }
 
             DB::commit();
+            return true;
+
         } catch (\Exception $e) {
             Log::error($e);
             DB::rollBack();
+
         }
 
+        return  false;
     }
 
     /*

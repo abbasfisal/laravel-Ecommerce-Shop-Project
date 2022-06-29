@@ -49,6 +49,7 @@ return [
 
         'fail_update' => 'Faile While Updating',
         'fail'        => 'UserName | Password is Invalid',
+        'fail_create'  =>'Fail While Creating new Product',
 
         'add_wishlist'       => 'product successfully added to your wishlist ',
         'was_exist_wishlist' => 'product was exist in your wishlist',
