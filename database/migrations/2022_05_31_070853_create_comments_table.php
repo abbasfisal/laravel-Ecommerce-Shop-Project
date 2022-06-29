@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Comment;
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +15,11 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->morphs('commentable');
+
+            $table->foreignId('product_id')
+                  ->constrained('products')
+                  ->cascadeOnUpdate()
+                  ->cascadeOnUpdate();
 
             $table->foreignId('parent_id')
                   ->nullable()
@@ -26,7 +28,7 @@ class CreateCommentsTable extends Migration
                   ->cascadeOnUpdate();
 
 
-            $table->foreignId('user_username')
+            $table->foreignId('user_id')
                   ->nullable()
                   ->comment('for mention another user in a comment thread')
                   ->constrained('users')

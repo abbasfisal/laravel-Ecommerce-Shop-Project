@@ -33,7 +33,7 @@
 
                         </div>
                         <div class="card-footer text-center">
-                           
+
                             <a href="{{route('add.wish.user' ,$product->id)}}" class="btn btn-outline-danger">
                                 <i class="ri-heart-2-fill"></i>
                             </a>
