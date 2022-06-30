@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Services;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
+use Illuminate\Support\Facades\Auth;
 
 class OrderItemServices extends Controller
 {
@@ -39,6 +40,17 @@ class OrderItemServices extends Controller
     public static function getOrderItemByOrder($OrderId)
     {
         return OrderItem::query()
-                        ->where('order_id', $OrderId)->get();
+                        ->where('order_id', $OrderId)
+                        ->get();
+    }
+
+    public static function getOrderProducts(Order $order)
+    {
+        if ($order->user_id != Auth::id()) {
+            abort(403);
+        }
+
+        return $order->orderItems;
+
     }
 }

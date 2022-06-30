@@ -129,7 +129,6 @@
 
                 </tr>
                 </thead>
-
                 <tbody>
                 @foreach($order->orderItems as $key => $orderItem)
                     <tr>

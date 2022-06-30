@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Services\StateService;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\User\Services\BasketService;
 use App\Http\Controllers\User\Services\CommentService;
+use App\Http\Controllers\User\Services\OrderItemServices;
 use App\Http\Controllers\User\Services\OrderServices;
 use App\Http\Controllers\User\Services\WishListService;
 use App\Http\Requests\AddBasketRequest;
@@ -311,6 +312,24 @@ class UserController extends Controller
         return redirect()
             ->back()
             ->with('fail', config('shop.msg.fail_comment'));
+    }
+
+
+    public function userBuyHistory()
+    {
+        $data = $this->menue;
+       $orders =   OrderServices::getAllOrder(Auth::id());
+        return view('user.buyhistory',compact('data' , 'orders'));
+    }
+
+    /**
+     * get products in order
+     */
+    public function getOrderItems(Order $order)
+    {
+        $data = $this->menue;
+        $orderitems =  OrderItemServices::getOrderProducts($order);
+        return view('user.history_productitems' , compact('data' , 'orderitems'));
     }
 
     /*

@@ -33,24 +33,32 @@ class CommentController extends Controller
 
     public function showComment(Comment $comment)
     {
+
         return view('admin.comments.singlecomment', compact('comment'));
     }
 
     public function addReply(AddReplyRequest $request, Comment $comment)
     {
 
-          $reply_result = CommentService::addReply($comment, $request);
-        if($reply_result){
-            return redirect()->back()->with('succ' , config('shop.msg.succ_reply'));
+        $reply_result = CommentService::addReply($comment, $request);
+
+        if ($reply_result) {
+            return redirect()
+                ->back()
+                ->with('succ', config('shop.msg.succ_reply'));
         }
 
-        return redirect()->back()->with('fail' , config('shop.msg.fail_reply'));
+        return redirect()
+            ->back()
+            ->with('fail', config('shop.msg.fail_reply'));
 
     }
 
     public function changeShowStatus(Comment $comment)
     {
+
         CommentService::changeShowStatus($comment);
+
         return redirect()->back();
     }
 }

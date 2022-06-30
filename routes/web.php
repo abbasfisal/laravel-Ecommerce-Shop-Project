@@ -66,6 +66,11 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
          ->name('logout');
 
 
+    /*
+     |------------------------------
+     | wish lists
+     |------------------------------
+     */
     Route::get('/add/wishlist/{product}', [UserController::class, 'addWishList'])
          ->name('add.wish.user');
 
@@ -77,6 +82,11 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
          ->name('del.wish.user')
          ->can('delete', 'wishlist');
 
+    /*
+     |------------------------------
+     | Product
+     |------------------------------
+     */
     //add new product to basket , increase count
     Route::post("/basket/add", [UserController::class, 'addBasket'])
          ->name('add.basket.user');
@@ -90,6 +100,11 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
          ->name('dec.basket.user');
 
 
+    /*
+     |------------------------------
+     | Baskets
+     |------------------------------
+     */
     //remove basket
     Route::get('/basket/del/{basket}', [UserController::class, 'delBasket'])
          ->name('del.basket.user');
@@ -109,13 +124,32 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
     Route::post('/basket/get/state', [UserController::class, 'GetStateByCityId'])
          ->name('state.basket.user');
 
+
+    //history
+    Route::get('/basket/history', [UserController::class, 'userBuyHistory'])
+         ->name('history.basket.user');
+
+    //basket item in history
+    Route::get('/basket/{order}/items' , [UserController::class , 'getOrderItems'])
+        ->name('items.basket.user');
+
     //pay
     Route::get('/basket/pay/{order}', [UserController::class, 'Pay'])
          ->name('pay.user');
     /*->can('view', 'order');*/
 
+    /*
+     |------------------------------
+     | comments
+     |------------------------------
+     |
+     |
+     |
+     */
     Route::post('/add/comment/{product}', [UserController::class, 'addComment'])
          ->name('add.comment.user');
+
+
 });
 
 
@@ -334,11 +368,11 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'adminauth'], fun
     Route::get('/comment/{comment}/show', [CommentController::class, 'showComment'])
          ->name('show.comment');
 
-    Route::get('/commnet/{comment}/reply' , [CommentController::class , 'addReply'])
-        ->name('add.reply.comment');
+    Route::get('/commnet/{comment}/reply', [CommentController::class, 'addReply'])
+         ->name('add.reply.comment');
 
-    Route::get('/comment/{comment}/change-show' , [CommentController::class , 'changeShowStatus'])
-        ->name('change.show.comment');
+    Route::get('/comment/{comment}/change-show', [CommentController::class, 'changeShowStatus'])
+         ->name('change.show.comment');
 });
 
 /*

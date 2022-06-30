@@ -41,7 +41,6 @@ class OrderServices extends Controller
             OrderItemServices::StoreUserBasket(Auth::id(), $order);
 
 
-
             $orderItems = OrderItemServices::getOrderItemByOrder($order->id);
 
 
@@ -134,10 +133,10 @@ class OrderServices extends Controller
     public static function getOrder($order, $AuthId)
     {
         return Order::query()
-             ->where('id', $order)
-             ->where('user_id',$AuthId)
-             ->where('status', Order::status_new)
-             ->first();
+                    ->where('id', $order)
+                    ->where('user_id', $AuthId)
+                    ->where('status', Order::status_new)
+                    ->first();
     }
     /*
      |------------------------------
@@ -193,15 +192,24 @@ class OrderServices extends Controller
      * @param Model $order
      * @param FakeRequest $pay_request
      */
-    public static function SuccessfullPaid(Model $order , FakeRequest $pay_request)
+    public static function SuccessfullPaid(Model $order, FakeRequest $pay_request)
     {
         $order->update([
             'tracking_code' => Str::random(3) . rand(1111, 9999),
-            'status'=> Order::status_paid,
+            'status'        => Order::status_paid,
             'payment_code'  => $pay_request->getTransactionId(),
             'paied_date'    => now()->format('Y-m-d H:m:s')
         ]);
 
+
+    }
+
+
+    public static function getAllOrder($authId)
+    {
+        return Order::query()
+                    ->where('user_id', $authId)
+                    ->get();
 
     }
 
