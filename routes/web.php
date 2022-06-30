@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
@@ -130,13 +131,27 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
          ->name('history.basket.user');
 
     //basket item in history
-    Route::get('/basket/{order}/items' , [UserController::class , 'getOrderItems'])
-        ->name('items.basket.user');
+    Route::get('/basket/{order}/items', [UserController::class, 'getOrderItems'])
+         ->name('items.basket.user');
 
     //pay
     Route::get('/basket/pay/{order}', [UserController::class, 'Pay'])
          ->name('pay.user');
     /*->can('view', 'order');*/
+
+    /*
+     |------------------------------
+     | profile
+     |------------------------------
+     */
+
+    //show profile view
+    Route::get('/user/profile', [UserController::class, 'showProfile'])
+         ->name('show.profile.user');
+
+    //update
+    Route::post('/user/profile', [UserController::class, 'updateProfile'])
+         ->name('update.profile.user');
 
     /*
      |------------------------------
@@ -373,6 +388,18 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'adminauth'], fun
 
     Route::get('/comment/{comment}/change-show', [CommentController::class, 'changeShowStatus'])
          ->name('change.show.comment');
+
+    /*
+     |------------------------------
+     | Profile
+     |------------------------------
+     */
+    //show view
+    Route::get('/profile', [AdminProfileController::class, 'showProfile'])
+         ->name('show.profile.admin');
+
+    Route::post('/profile', [AdminProfileController::class, 'updateProfile'])
+         ->name('update.profile.admin');
 });
 
 /*

@@ -12,6 +12,7 @@ use App\Http\Controllers\User\Services\BasketService;
 use App\Http\Controllers\User\Services\CommentService;
 use App\Http\Controllers\User\Services\OrderItemServices;
 use App\Http\Controllers\User\Services\OrderServices;
+use App\Http\Controllers\User\Services\UserService;
 use App\Http\Controllers\User\Services\WishListService;
 use App\Http\Requests\AddBasketRequest;
 use App\Http\Requests\AddCommentRequest;
@@ -20,6 +21,7 @@ use App\Http\Requests\DiscountRequest;
 use App\Http\Requests\GetStateByCityIDRequest;
 use App\Http\Requests\StoreUserOrderAddressRequest;
 use App\Http\Requests\UserOrderPayRequest;
+use App\Http\Requests\UserProfileRequest;
 use App\Models\Basket;
 use App\Models\Order;
 use App\Models\Product;
@@ -318,8 +320,8 @@ class UserController extends Controller
     public function userBuyHistory()
     {
         $data = $this->menue;
-       $orders =   OrderServices::getAllOrder(Auth::id());
-        return view('user.buyhistory',compact('data' , 'orders'));
+        $orders = OrderServices::getAllOrder(Auth::id());
+        return view('user.buyhistory', compact('data', 'orders'));
     }
 
     /**
@@ -328,8 +330,27 @@ class UserController extends Controller
     public function getOrderItems(Order $order)
     {
         $data = $this->menue;
-        $orderitems =  OrderItemServices::getOrderProducts($order);
-        return view('user.history_productitems' , compact('data' , 'orderitems'));
+        $orderitems = OrderItemServices::getOrderProducts($order);
+        return view('user.history_productitems', compact('data', 'orderitems'));
+    }
+
+
+    public function showProfile()
+    {
+        $data = $this->menue;
+        return view('user.profile.index', compact('data'));
+    }
+
+    public function updateProfile(UserProfileRequest $request)
+    {
+        $update_reuslt = UserService::updateProfile($request);
+
+        if($update_reuslt)
+            return redirect()->back()->with('succ' , config('shop.msg.update'));
+
+        return redirect()->back()->with('fail' , config('shop.msg.fail_update'));
+
+
     }
 
     /*
