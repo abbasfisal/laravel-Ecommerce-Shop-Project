@@ -28,7 +28,8 @@ class CommentService extends Controller
     {
         return Comment::query()
                       ->where('product_id', $product->id)
-                      ->where('parent_id' , null)
+                      ->where('show', true)
+                      ->where('parent_id', null)
                       ->paginate(2);
     }
 }
