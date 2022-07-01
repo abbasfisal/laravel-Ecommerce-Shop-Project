@@ -237,16 +237,20 @@ _پس از هر ویرایش یا ایجاد یک منو، ``` کش ``` به ص�
 1. [laravel-toman](https://github.com/evryn/laravel-toman)
 > پکیج درگاه پرداخت واسط
 
-1. [TinyMCE](https://github.com/tinymce/tinymce.git)
+2. [TinyMCE](https://github.com/tinymce/tinymce.git)
 >ویرایشگر متن TinyMCE
 
 
 ##  هلپر فانکشن ها و فایل تنظیمات فروشگاه 
 
+<div dir="rtl">    
 ### helpers function
+</div>
 >فانکشن هایی که مورد نیاز بود در پوشه ``app`` قرار گرفته که شامل فانکشن های کاربردی است
 
-###      تنظیمات فروشگاه 
+<div dir="rtl">
+    ###      تنظیمات فروشگاه 
+</div>
 <b>
  تنظیمات مربوط به فروشگاه شامل موارد ذیل در ``config/shop.php`` قرار گرفته است که شامل موارد ذیل می باشد :
 </b>
@@ -256,6 +260,56 @@ _پس از هر ویرایش یا ایجاد یک منو، ``` کش ``` به ص�
 1. مسیر های آپلود  کاور محصول، گالری محصول، تصویر برند، بنر مربوط به تخفیفات
 1. متن پیغام های عملیات ``CRUD``
 
+    
+    
+## لیست روابط بین مدل ها 
+    
+<details>
+<summary>
+<h4>
+                 لیست تصاویر روابط مدل ها :framed_picture:	
+</h4>
+</summary>
+            
+            
+            
+
+![Basket](https://user-images.githubusercontent.com/10767713/176944935-acd3732a-9b86-4799-9295-3a7c8b35dd65.PNG)
+
+![Brand](https://user-images.githubusercontent.com/10767713/176944945-16ae8386-9c00-4b84-8f68-5f43e091ee61.PNG)
+
+![Category](https://user-images.githubusercontent.com/10767713/176944946-413be336-51fa-47a0-a01b-4520e49810ac.PNG)
+
+![City](https://user-images.githubusercontent.com/10767713/176944948-ed7fb982-942a-484d-bd97-dbf0c13a4b4f.PNG)
+    
+![Color](https://user-images.githubusercontent.com/10767713/176944949-eea9c0d4-7787-45e2-bab0-14e0a04c1752.PNG)
+    
+![Comment](https://user-images.githubusercontent.com/10767713/176944951-b376ced9-bbbf-4e77-a75d-068e3db96038.PNG)
+    
+![Discount](https://user-images.githubusercontent.com/10767713/176944954-8db47d00-40f0-4718-9548-624c0374de81.PNG)
+    
+![Order](https://user-images.githubusercontent.com/10767713/176944956-fb2f8c6b-6684-4a76-8840-ae20f822d569.PNG)
+    
+![OrderItem](https://user-images.githubusercontent.com/10767713/176944961-8d8ac1fc-fda1-437d-947d-e3219a7050f1.PNG)
+    
+![Product](https://user-images.githubusercontent.com/10767713/176944963-33839808-99b1-42cf-a980-edf781f6b296.PNG)
+    
+![ProductDetail](https://user-images.githubusercontent.com/10767713/176944964-84ffef00-56df-4dcf-920f-21c73f79f1cf.PNG)
+       
+![Product-Galleries](https://user-images.githubusercontent.com/10767713/176944967-7c51a8a4-358a-4402-a24c-a97dbb78b3ff.PNG)
+    
+![Size](https://user-images.githubusercontent.com/10767713/176944972-a45ce696-d747-4165-8d5a-fc46cae54bc3.PNG)
+    
+![State](https://user-images.githubusercontent.com/10767713/176944975-f5f8ec05-3df9-4937-bafe-5705afbc60d4.PNG)
+    
+![User](https://user-images.githubusercontent.com/10767713/176944978-c3d38f64-4d96-4f68-8e46-e1ee49b6a069.PNG)
+    
+![Wishlist](https://user-images.githubusercontent.com/10767713/176944980-b48def0c-4edd-4e8b-b918-8a5c5b88a686.PNG)
+
+            
+            
+</details>
+    
 </div>
 
 
